@@ -1,13 +1,11 @@
 package de.hkwh.backend.controller;
 
 import de.hkwh.backend.datatransferobjects.VehicleDTO;
-import de.hkwh.backend.service.VehicleService;
+import de.hkwh.backend.service.RessourceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -15,7 +13,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class VehiclesController {
 
-    private final VehicleService vehicleService;
+    private final RessourceService ressourceService;
 
     /**
      * GET /vehicle
@@ -24,25 +22,25 @@ public class VehiclesController {
      */
     @GetMapping("/vehicles")
     public ResponseEntity<VehicleDTO[]> getVehicles() {
-        return new ResponseEntity<>(vehicleService.getVehicles(), HttpStatus.OK);
+        return new ResponseEntity<>(ressourceService.getVehicles(), HttpStatus.OK);
     }
 
     @GetMapping("/vehicle/license/{plate}")
     public ResponseEntity<VehicleDTO> getVehicle(@PathVariable String plate)
     {
-        return new ResponseEntity<>(vehicleService.getVehicle(plate), HttpStatus.OK);
+        return new ResponseEntity<>(ressourceService.getVehicle(plate), HttpStatus.OK);
     }
 
     @GetMapping("/vehicle/v_id/{id}")
     public ResponseEntity<VehicleDTO> getVehicle(@PathVariable long id)
     {
-        return new ResponseEntity<>(vehicleService.getVehicle(id), HttpStatus.OK);
+        return new ResponseEntity<>(ressourceService.getVehicle(id), HttpStatus.OK);
     }
 
     @PostMapping("/vehicle/checkin/{plate}/{hub}")
     public ResponseEntity<VehicleDTO> checkInVehicle(@PathVariable String plate, @PathVariable long hub)
     {
-        return new ResponseEntity<>(vehicleService.checkIn(plate, hub), HttpStatus.OK);
+        return new ResponseEntity<>(ressourceService.checkIn(plate, hub), HttpStatus.OK);
     }
 
     @PostMapping("/vehicle/checkout/{plate}")

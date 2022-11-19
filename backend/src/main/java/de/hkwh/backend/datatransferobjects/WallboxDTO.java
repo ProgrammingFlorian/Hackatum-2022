@@ -24,4 +24,16 @@ public record WallboxDTO(
                 vehicles_scheduled
         );
     }
+
+    public static WallboxDTO of(Parkingspot parkingspot, Hub hub)
+    {
+        return new WallboxDTO(
+                parkingspot.getP_id(),
+                hub.getH_id(),
+                parkingspot.getSpotName(),
+                parkingspot.getIsFree()==1,
+                parkingspot.getChargingSpeed(),
+                null
+        );
+    }
 }
