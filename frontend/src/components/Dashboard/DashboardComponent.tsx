@@ -1,13 +1,16 @@
 import DashboardWelcomeComponent from "./Welcome/DashboardWelcomeComponent";
 import DashboardWallboxContainer from "./Wallboxes/DashboardWallboxContainer";
-import DashboardNotificationContainer from "./Notifications/DashboardNotificationContainer";
+import DashboardTaskContainer from "./Notifications/DashboardTaskContainer";
 import {WallboxDTO} from "../../model/WallboxDTO";
 import {VehicleInfoDTO} from "../../model/VehicleInfoDTO";
 import VehicleInfoContainer from "../VehicleInformation/VehicleInfoContainer";
+import {TaskDTO} from "../../model/TaskDTO";
 
 interface DashboardComponentProps {
     wallboxes: WallboxDTO[];
+    tasks: TaskDTO[];
     vehicleInfo: VehicleInfoDTO | null;
+    vehicleInfoTasks: TaskDTO[];
 
     showVehicleInfo: (vehicleInfo: VehicleInfoDTO) => void;
     hideVehicleInfo: () => void;
@@ -29,7 +32,7 @@ const DashboardComponent = (props: DashboardComponentProps) => {
                            Notifications:
                         </h3>
                         <div className="container">
-                            <DashboardNotificationContainer/>
+                            <DashboardTaskContainer tasks={props.tasks}/>
                         </div>
                     </div>
                 </div>
@@ -41,7 +44,7 @@ const DashboardComponent = (props: DashboardComponentProps) => {
                     <br/> <br/> <br/> <br/> <br/>
                     <div className="d-flex justify-content-center align-items-center pb-5">
                         <div className="">
-                            <VehicleInfoContainer hideVehicleInfo={props.hideVehicleInfo}/>
+                            <VehicleInfoContainer vehicle={props.vehicleInfo} tasks={props.vehicleInfoTasks} hideVehicleInfo={props.hideVehicleInfo}/>
                         </div>
                     </div>
                 </div>

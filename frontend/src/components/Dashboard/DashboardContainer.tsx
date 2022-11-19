@@ -2,74 +2,29 @@ import DashboardComponent from "./DashboardComponent";
 import {useEffect, useState} from "react";
 import {VehicleInfoDTO} from "../../model/VehicleInfoDTO";
 import {Requests} from "../../common/requests";
-import {apiVehicleCheckinRoute, apiVehicleInfoRoute} from "../../common/apiRoutes";
+import {apiDashboard, apiVehicleCheckinRoute, apiVehicleInfoRoute} from "../../common/apiRoutes";
 import {SuccessDTO} from "../../model/SuccessDTO";
 import {WallboxDTO} from "../../model/WallboxDTO";
 import {LoadingComponent} from "../LoadingComponent";
+import {DashboardDTO} from "../../model/DashboardDTO";
+import {TaskDTO} from "../../model/TaskDTO";
 
 const DashboardContainer = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const checkin = urlParams.get("checkin");
 
     const [vehicleInfo, setVehicleInfo] = useState<VehicleInfoDTO | null>(null);
+    const [vehicleInfoTasks, setVehicleInfoTasks] = useState<TaskDTO[]>([]);
     const [wallboxes, setWallboxes] = useState<WallboxDTO[] | null>(null);
+    const [tasks, setTasks] = useState<TaskDTO[]>([]);
 
-    const loadWallboxes = () => {
-        // TODO
-        setWallboxes([
-            {
-                vehicles: [
-                    {
-                        vehicleId: 4,
-                        color: 'red',
-                        licensePlate: 'M SX 0001',
-                        nextPickUpCustomer: new Date(),
-                        upcomingTasks: [],
-                        nextPickUpTime: new Date(),
-                        batteryLevel: 20,
-                        brand: "Audi"
-                    },
-                    {
-                        vehicleId: 4,
-                        color: 'red',
-                        licensePlate: 'M SX 0001',
-                        nextPickUpCustomer: new Date(),
-                        upcomingTasks: [],
-                        nextPickUpTime: new Date(),
-                        batteryLevel: 50,
-                        brand: "Audi"
-                    }
-                ]
-            },
-            {
-                vehicles: [
-                    {
-                        vehicleId: 4,
-                        color: 'red',
-                        licensePlate: 'M SX 0001',
-                        nextPickUpCustomer: new Date(),
-                        upcomingTasks: [],
-                        nextPickUpTime: new Date(),
-                        batteryLevel: 20,
-                        brand: "Audi"
-                    }
-                ]
-            },
-            {
-                vehicles: [
-                    {
-                        vehicleId: 4,
-                        color: 'red',
-                        licensePlate: 'M SX 0001',
-                        nextPickUpCustomer: new Date(),
-                        upcomingTasks: [],
-                        nextPickUpTime: new Date(),
-                        batteryLevel: 20,
-                        brand: "Audi"
-                    }
-                ]
-            }
-        ]);
+    const loadWallboxes = (): Promise<void> => {
+        return Requests.getRequest<DashboardDTO>(apiDashboard()).then((dashboard) => {
+            setWallboxes(dashboard.wallboxes);
+            setTasks(dashboard.tasks);
+
+            return Promise.resolve();
+        });
     };
 
     const showVehicleInfo = (vehicleInfo: VehicleInfoDTO) => {
@@ -77,19 +32,37 @@ const DashboardContainer = () => {
             setVehicleInfo(vehicle)
         });*/
         setVehicleInfo(vehicleInfo);
+        setVehicleInfoTasks(tasks.filter(task => task.vehicle === vehicleInfo.vehicleId));
     }
 
     const hideVehicleInfo = () => {
-
         setVehicleInfo(null);
+    }
+
+    const getVehicleById = (vehicleId: number): (VehicleInfoDTO | null) => {
+        if (wallboxes) {
+            for (const wallbox of wallboxes) {
+                for (const vehicleSchedule of wallbox.vehicles) {
+                    if (vehicleSchedule.vehicle.vehicleId === vehicleId) {
+                        return vehicleSchedule.vehicle;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     useEffect(() => {
         if (checkin) {
             const vehicleId = Number(checkin);
             Requests.postRequest<SuccessDTO>(apiVehicleCheckinRoute(vehicleId), {}).then(success => {
-                if (success.success) {
-                    //showVehicleInfo(vehicleId);
+                if (success.vehicleId) {
+                    loadWallboxes().then(() => {
+                        const vehicle = getVehicleById(vehicleId);
+                        if (vehicle !== null) {
+                            showVehicleInfo(vehicle);
+                        }
+                    });
                 } else {
                     console.log("Checkin failed!");
                 }
@@ -109,7 +82,8 @@ const DashboardContainer = () => {
     } else {
         return (
             <DashboardComponent showVehicleInfo={showVehicleInfo} hideVehicleInfo={hideVehicleInfo}
-                                wallboxes={wallboxes} vehicleInfo={vehicleInfo}/>
+                                wallboxes={wallboxes} tasks={tasks} vehicleInfo={vehicleInfo}
+                                vehicleInfoTasks={vehicleInfoTasks}/>
         );
     }
 }

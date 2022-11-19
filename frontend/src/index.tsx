@@ -10,14 +10,11 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
 import DashboardContainer from "./components/Dashboard/DashboardContainer";
 import PageLayout from "./common/PageLayout";
-import VehicleInfoContainer from "./components/VehicleInformation/VehicleInfoContainer";
-import VehiclePageContainer from "./VehiclePage/VehiclePageContainer";
 
 
 const root: Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
-
 
 
 root.render(
@@ -27,8 +24,6 @@ root.render(
                 <Route path="/" element={<PageLayout/>}>
                     <Route index element={<DashboardContainer/>}/>
                 </Route>
-                <Route path="/vehicles" element={<VehiclePageContainer/>}/>
-
             </Routes>
         </BrowserRouter>
     </React.StrictMode>

@@ -1,39 +1,36 @@
-
 import VehiclePageComponent from "./VehiclePageComponent";
-import {useState} from "react";
-import {VehicleInfo} from "../model/VehicleInfo";
+import {VehicleInfoDTO} from "../model/VehicleInfoDTO";
 
+const VehiclePageContainer = () => {
+    const vehicles: VehicleInfoDTO[] =
+        [
+            {
+                vehicleId: 4,
+                color: 'red',
+                licensePlate: 'M SX 0001',
+                nextPickUpCustomer: "Marius",
+                nextPickUpTime: new Date(),
+                batteryLevel: 20,
+                brand: "Audi",
+                model: "A1",
+                vehicleClass: "Class",
+                chargingSpeed: 10
+            },
+            {
+                vehicleId: 4,
+                color: 'red',
+                licensePlate: 'M SX 0001',
+                nextPickUpCustomer: "Max",
+                nextPickUpTime: new Date,
+                batteryLevel: 50,
+                brand: "Audi",
+                model: "A1",
+                vehicleClass: "Class",
+                chargingSpeed: 10
+            }
+        ];
 
-interface VehiclePageContainerProps {
-  vehicles: [
-    {
-      vehicleId: 4,
-      color: 'red',
-      licensePlate: 'M SX 0001',
-      nextPickUpCustomer: String,
-      upcomingTasks: [],
-      nextPickUpTime: String,
-      batteryLevel: 20,
-      brand: "Audi"
-    },
-    {
-      vehicleId: 4,
-      color: 'red',
-      licensePlate: 'M SX 0001',
-      nextPickUpCustomer: String,
-      upcomingTasks: [],
-      nextPickUpTime: String,
-      batteryLevel: 50,
-      brand: "Audi"
-    }
-  ]
-}
+    return <VehiclePageComponent vehicles={vehicles}/>
+};
 
-
-const VehiclePageContainer = (props: VehiclePageContainerProps) => {
-
-  // @ts-ignore
-  return <VehiclePageComponent vehicles={props.vehicles}/>
-}
-
-export default VehiclePageContainer
+export default VehiclePageContainer;
