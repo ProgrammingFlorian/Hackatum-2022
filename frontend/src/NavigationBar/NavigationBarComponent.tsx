@@ -10,7 +10,7 @@ const NavigationBarComponent = (props: NavigationBarProps) => {
         <nav className="navbar navbar-expand-lg color-orange">
             <div className="container-fluid">
                 <a className="navbar-brand" href="/">
-                    <img src="sixt-logo.png" alt="Logo" height={30} width={80}/>
+                    <img src="sixt-logo.png" alt="Logo" height={30} width={72}/>
                 </a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
