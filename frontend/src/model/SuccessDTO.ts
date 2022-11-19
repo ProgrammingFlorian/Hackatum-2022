@@ -1,3 +1,3 @@
 export interface SuccessDTO {
-    success: boolean;
+    vehicleId: boolean | undefined;
 }

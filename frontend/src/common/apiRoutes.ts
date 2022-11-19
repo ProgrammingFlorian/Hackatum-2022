@@ -1,3 +1,7 @@
+export const apiDashboard = (): string => {
+       return `/dashboard`;
+}
+
 export const apiVehicleInfoRoute = (id: number): string => {
        return `/vehicles/${id}`;
 }

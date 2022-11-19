@@ -1,6 +1,7 @@
 import {WallboxDTO} from "../../../model/WallboxDTO";
 import SingleWallboxVehicleComponent from "./SingleWallboxVehicleComponent";
 import {VehicleInfoDTO} from "../../../model/VehicleInfoDTO";
+import {VehicleScheduleDTO} from "../../../model/VehicleScheduleDTO";
 
 interface SingleWallboxComponentProps {
     name: string;
@@ -13,9 +14,9 @@ const SingleWallboxComponent = (props: SingleWallboxComponentProps) => {
     return (
         <div className="container text-white fw-bold pt-4">
             <h3>{props.name}</h3>
-            {props.wallbox.vehicles.map((vehicle: VehicleInfoDTO) => {
+            {props.wallbox.vehicles.map((vehicleSchedule: VehicleScheduleDTO) => {
                 return (
-                    <SingleWallboxVehicleComponent vehicle={vehicle} showVehicleInfo={props.showVehicleInfo}/>
+                    <SingleWallboxVehicleComponent vehicle={vehicleSchedule.vehicle} showVehicleInfo={props.showVehicleInfo}/>
                 )
             })}
         </div>
