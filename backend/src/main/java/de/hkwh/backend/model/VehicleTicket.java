@@ -37,14 +37,17 @@ public class VehicleTicket {
     @Column(name = "checkout_date")
     private Timestamp checkoutTimestamp;
 
+    @Column(name = "next_customer")
+    private String nextCustomer;
     @NotNull
     @Column(name = "isActive")
     private int isActive;
 
-    public VehicleTicket(long v_id, long h_id, Timestamp checkinTimestamp) {
+    public VehicleTicket(long v_id, long h_id, Timestamp checkinTimestamp, String next) {
         this.v_id = v_id;
         this.h_id = h_id;
         this.checkinTimestamp = checkinTimestamp;
         this.isActive = 1;
+        this.nextCustomer = next;
     }
 }

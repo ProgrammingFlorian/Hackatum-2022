@@ -56,12 +56,12 @@ public class MockService {
     }
 
     private Vehicle[] setupVehicles(Model[] models) {
-        Vehicle eqa1 = new Vehicle(models[0].getM_id(), "M SX 0001", 20);
-        Vehicle eqa2 = new Vehicle(models[0].getM_id(), "M SX 0002", 70);
-        Vehicle eTron1 = new Vehicle(models[1].getM_id(), "M SX 0003", 40);
-        Vehicle i4_1 = new Vehicle(models[2].getM_id(), "M SX 0004", 90);
-        Vehicle i4_2 = new Vehicle(models[2].getM_id(), "M SX 0005", 10);
-        Vehicle i4_3 = new Vehicle(models[2].getM_id(), "M SX 0006", 35);
+        Vehicle eqa1 = new Vehicle(models[0].getM_id(), "M SX 0001", 20, "red");
+        Vehicle eqa2 = new Vehicle(models[0].getM_id(), "M SX 0002", 70, "white");
+        Vehicle eTron1 = new Vehicle(models[1].getM_id(), "M SX 0003", 40, "blue");
+        Vehicle i4_1 = new Vehicle(models[2].getM_id(), "M SX 0004", 90, "green");
+        Vehicle i4_2 = new Vehicle(models[2].getM_id(), "M SX 0005", 10, "yellow");
+        Vehicle i4_3 = new Vehicle(models[2].getM_id(), "M SX 0006", 35, "red");
 
         eqa1 = vehicles.save(eqa1);
         eqa2 = vehicles.save(eqa2);

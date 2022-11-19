@@ -11,7 +11,8 @@ public record VehicleDTO(
        String model,
        int chargingSpeed,
        String licensePlate,
-       int batteryLevel
+       int batteryLevel,
+       String color
 ){
 
     public static VehicleDTO of(Vehicle vehicle, Model model) {
@@ -22,7 +23,8 @@ public record VehicleDTO(
                 model.getModel(),
                 model.getChargingSpeed(),
                 vehicle.getLicensePlate(),
-                vehicle.getBatteryLevel()
+                vehicle.getBatteryLevel(),
+                vehicle.getColor()
         );
     }
 }

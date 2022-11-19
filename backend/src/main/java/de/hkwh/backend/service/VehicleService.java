@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -63,7 +64,7 @@ public class VehicleService {
         Hub hub = hubs.findByH_id(h_id).orElseThrow();
         Parkingspot parkingspot = parkingSpots.findFirstFree().orElseThrow();
 
-        VehicleTicket ticket = new VehicleTicket(vehicle.getV_id(), hub.getH_id(), Timestamp.valueOf(LocalDateTime.now()));
+        VehicleTicket ticket = new VehicleTicket(vehicle.getV_id(), hub.getH_id(), Timestamp.valueOf(LocalDateTime.now()), randomNextCustomer());
 
         //@Todo ticket.setCheckoutTimestamp();
 
@@ -89,5 +90,11 @@ public class VehicleService {
     {
         Model model = models.findByM_id(vehicle.getM_id()).orElseThrow();
         return VehicleDTO.of(vehicle, model);
+    }
+
+    private String randomNextCustomer() {
+        Random random = new Random();
+        String[] customerNames = new String[]{"Max Meier", "Sabine Müller", "Franz Schmid", "Josef Bauer" , "Alex Maier"};
+        return customerNames[random.nextInt(0,5)];
     }
 }

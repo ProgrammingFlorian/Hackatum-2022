@@ -16,7 +16,8 @@ public record VehicleTicketDTO (
         long p_id,
         Timestamp checkin_date,
         Timestamp checkout_date,
-        boolean isActive
+        boolean isActive,
+        String nextCustomer
 ){
     public static VehicleTicketDTO of(VehicleTicket vehicleTicket, Vehicle vehicle) {
         return new VehicleTicketDTO(
@@ -27,7 +28,8 @@ public record VehicleTicketDTO (
                 vehicleTicket.getP_id(),
                 vehicleTicket.getCheckinTimestamp(),
                 vehicleTicket.getCheckoutTimestamp(),
-                vehicleTicket.getIsActive() == 1
+                vehicleTicket.getIsActive() == 1,
+                vehicleTicket.getNextCustomer()
         );
     }
 
