@@ -1,6 +1,8 @@
 const DashboardInfoComponent = () => {
     return (
-        <p>Hello Ben,<br/> was geht? Wir haben hier nicht keinen Text</p>
+        <text className="pt-5 text-white">
+            Hey Ben,<br/> you are
+        </text>
     )
 };
 

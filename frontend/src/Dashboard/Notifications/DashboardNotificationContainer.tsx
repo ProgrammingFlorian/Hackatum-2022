@@ -1,7 +1,8 @@
 import DashboardNotificationComponent from "./DashboardNotificationComponent";
 
 const DashboardNotificationContainer = () => {
-    return <DashboardNotificationComponent notifications={[
+    return <DashboardNotificationComponent notifications={
+        [
         {name: "Notifications 1"},
         {name: "Notifications 2"},
         {name: "Notifications 3"},
