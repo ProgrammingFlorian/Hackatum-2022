@@ -26,9 +26,6 @@ public class Vehicle {
     @Column(name = "license_plate")
     private String licensePlate;
 
-    @Column(name = "hub_location")
-    private String hubLocation;
-
     @Column(name = "battery_level")
     private int batteryLevel;
 
@@ -37,10 +34,9 @@ public class Vehicle {
         this.licensePlate = licensePlate;
     }
 
-    public Vehicle(long m_id, String licensePlate, String hubLocation, int batteryLevel) {
+    public Vehicle(long m_id, String licensePlate, int batteryLevel) {
         this.m_id = m_id;
         this.licensePlate = licensePlate;
-        this.hubLocation = hubLocation;
         this.batteryLevel = batteryLevel;
     }
 }

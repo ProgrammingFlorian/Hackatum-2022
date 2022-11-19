@@ -37,6 +37,6 @@ public class VehicleTask {
     private long to_p_id;
 
     @Column(name = "fulfilled")
-    private boolean fulfilled;
+    private int fulfilled;
 
 }
