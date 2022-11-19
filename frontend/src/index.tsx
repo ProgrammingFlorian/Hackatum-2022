@@ -10,8 +10,6 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
 import DashboardContainer from "./Dashboard/DashboardContainer";
 import PageLayout from "./common/PageLayout";
-import AutoInfoModal from "./Components/VehicleInfoModal";
-import VehicleInfoModalContainer from './Components/VehicleInfoModalContainer';
 
 const root: Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -25,9 +23,8 @@ root.render(
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<PageLayout/>}>
-                    <Route index element={<DashboardContainer />}/>
+                    <Route index element={<DashboardContainer/>}/>
                 </Route>
-                    <Route path="/check-in" element={<VehicleInfoModalContainer vehicleId={0}/>}/>
             </Routes>
         </BrowserRouter>
     </React.StrictMode>

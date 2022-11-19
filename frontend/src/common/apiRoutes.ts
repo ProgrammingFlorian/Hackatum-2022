@@ -1,5 +1,7 @@
-const apiRoute = "/api"
-
 export const apiVehicleInfoRoute = (id: number): string => {
-       return `${apiRoute}/vehicles/${id}`
+       return `/vehicles/${id}`;
+}
+
+export const apiVehicleCheckinRoute = (id: number): string => {
+       return `/vehicles/check-in?id=${id}`;
 }

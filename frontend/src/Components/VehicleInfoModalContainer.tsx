@@ -1,26 +1,14 @@
-import {useEffect, useState} from "react";
-import { VehicleInfo } from "../Model/VehicleInfo";
+import {VehicleInfo} from "../Model/VehicleInfo";
 import AutoInfoModal from "./VehicleInfoModal";
-import {Requests} from "../common/requests";
-import {apiVehicleInfoRoute} from "../common/apiRoutes";
 
 interface AutoInfoModalContainerProps {
-    vehicleId: number;
+    vehicleInfo: VehicleInfo;
 }
 
 const VehicleInfoModalContainer = (props: AutoInfoModalContainerProps) => {
-    const [vehicleInfo, setVehicleInfo] = useState<VehicleInfo>();
-
-    useEffect(() => {
-        Requests.getRequest<VehicleInfo>(apiVehicleInfoRoute(props.vehicleId)).then((vehicle) => {
-            setVehicleInfo(vehicle)
-        })
-    });
-
     return (
-        <AutoInfoModal vehicleInfo={vehicleInfo} />
+        <AutoInfoModal vehicleInfo={props.vehicleInfo}/>
     );
-
 };
 
-export default VehicleInfoModalContainer
+export default VehicleInfoModalContainer;
