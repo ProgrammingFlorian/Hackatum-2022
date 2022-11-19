@@ -1,9 +1,9 @@
-import {VehicleInfo} from "../../../model/VehicleInfo";
+import {VehicleInfoDTO} from "../../../model/VehicleInfoDTO";
 
 interface SingleWallboxVehicleComponentProps {
-    vehicle: VehicleInfo;
+    vehicle: VehicleInfoDTO;
 
-    showVehicleInfo: (vehicleInfo: VehicleInfo) => void;
+    showVehicleInfo: (vehicleInfo: VehicleInfoDTO) => void;
 }
 
 const SingleWallboxVehicleComponent = (props: SingleWallboxVehicleComponentProps) => {

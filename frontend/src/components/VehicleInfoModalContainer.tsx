@@ -1,8 +1,8 @@
-import {VehicleInfo} from "../model/VehicleInfo";
+import {VehicleInfoDTO} from "../model/VehicleInfoDTO";
 import AutoInfoModal from "./VehicleInfoModal";
 
 interface AutoInfoModalContainerProps {
-    vehicleInfo: VehicleInfo;
+    vehicleInfo: VehicleInfoDTO;
 }
 
 const VehicleInfoModalContainer = (props: AutoInfoModalContainerProps) => {

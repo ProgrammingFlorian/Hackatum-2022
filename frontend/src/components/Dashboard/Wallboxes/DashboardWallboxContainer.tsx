@@ -1,11 +1,11 @@
 import DashboardWallboxComponent from "./DashboardWallboxComponent";
-import {Wallbox} from "../../../model/Wallbox";
-import {VehicleInfo} from "../../../model/VehicleInfo";
+import {WallboxDTO} from "../../../model/WallboxDTO";
+import {VehicleInfoDTO} from "../../../model/VehicleInfoDTO";
 
 interface DashboardWallboxContainerProps {
-    wallboxes: Wallbox[];
+    wallboxes: WallboxDTO[];
 
-    showVehicleInfo: (vehicleInfo: VehicleInfo) => void;
+    showVehicleInfo: (vehicleInfo: VehicleInfoDTO) => void;
 }
 
 const DashboardWallboxContainer = (props: DashboardWallboxContainerProps) => {

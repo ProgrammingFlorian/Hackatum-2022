@@ -1,17 +1,17 @@
 import SingleWallboxComponent from "./SingleWallboxComponent";
-import {Wallbox} from "../../../model/Wallbox";
-import {VehicleInfo} from "../../../model/VehicleInfo";
+import {WallboxDTO} from "../../../model/WallboxDTO";
+import {VehicleInfoDTO} from "../../../model/VehicleInfoDTO";
 
 interface DashboardWallboxComponentProps {
-    wallboxes: Wallbox[];
+    wallboxes: WallboxDTO[];
 
-    showVehicleInfo: (vehicleInfo: VehicleInfo) => void;
+    showVehicleInfo: (vehicleInfo: VehicleInfoDTO) => void;
 }
 
 const DashboardWallboxComponent = (props: DashboardWallboxComponentProps) => {
     return (
-        <div className="row align-items-start">
-            {props.wallboxes.map((wallbox: Wallbox, index) => {
+        <div className="row align-items-start ">
+            {props.wallboxes.map((wallbox: WallboxDTO, index) => {
                 return (<div className="col-auto">
                     <SingleWallboxComponent name={`Wallbox ${index}`} wallbox={wallbox}
                                             showVehicleInfo={props.showVehicleInfo}/>
