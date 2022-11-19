@@ -1,8 +1,11 @@
 import SingleWallboxComponent from "./SingleWallboxComponent";
 import {Wallbox} from "../../../model/Wallbox";
+import {VehicleInfo} from "../../../model/VehicleInfo";
 
 interface DashboardWallboxComponentProps {
     wallboxes: Wallbox[];
+
+    showVehicleInfo: (vehicleInfo: VehicleInfo) => void;
 }
 
 const DashboardWallboxComponent = (props: DashboardWallboxComponentProps) => {
@@ -10,7 +13,8 @@ const DashboardWallboxComponent = (props: DashboardWallboxComponentProps) => {
         <div className="row align-items-center ">
             {props.wallboxes.map((wallbox: Wallbox, index) => {
                 return (<div className="col-auto">
-                    <SingleWallboxComponent name={`Wallbox ${index}`} wallbox={wallbox}/>
+                    <SingleWallboxComponent name={`Wallbox ${index}`} wallbox={wallbox}
+                                            showVehicleInfo={props.showVehicleInfo}/>
                 </div>);
             })}
         </div>

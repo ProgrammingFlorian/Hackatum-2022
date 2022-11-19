@@ -5,6 +5,8 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    user-select: none;
 }
 
 code {
@@ -87,4 +89,8 @@ h2 {
 .info-component {
     border-radius: 5px;
     background-color: #535353;
+}
+
+.bg-opacity-95 {
+    --bs-bg-opacity: 0.95;
 }

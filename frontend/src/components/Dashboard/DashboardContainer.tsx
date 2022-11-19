@@ -35,7 +35,7 @@ const DashboardContainer = () => {
                         nextPickUpCustomer: new Date(),
                         upcomingTasks: [],
                         nextPickUpTime: new Date(),
-                        batteryLevel: 20
+                        batteryLevel: 50
                     }
                 ]
             },
@@ -55,10 +55,11 @@ const DashboardContainer = () => {
         ]);
     };
 
-    const showVehicleInfo = (vehicleId: number) => {
-        Requests.getRequest<VehicleInfo>(apiVehicleInfoRoute(vehicleId)).then((vehicle) => {
+    const showVehicleInfo = (vehicleInfo: VehicleInfo) => {
+        /*Requests.getRequest<VehicleInfo>(apiVehicleInfoRoute(vehicleId)).then((vehicle) => {
             setVehicleInfo(vehicle)
-        });
+        });*/
+        setVehicleInfo(vehicleInfo);
     }
 
     const hideVehicleInfo = () => {
@@ -70,7 +71,7 @@ const DashboardContainer = () => {
             const vehicleId = Number(checkin);
             Requests.postRequest<SuccessDTO>(apiVehicleCheckinRoute(vehicleId), {}).then(success => {
                 if (success.success) {
-                    showVehicleInfo(vehicleId);
+                    //showVehicleInfo(vehicleId);
                 } else {
                     console.log("Checkin failed!");
                 }
@@ -83,14 +84,14 @@ const DashboardContainer = () => {
         return LoadingComponent({
             message: "Lade..."
         });
-    } else if (vehicleInfo !== null) {
+    } else if (checkin !== null) {
         return LoadingComponent({
             message: "Currently checking in your vehicle..."
         });
     } else {
         return (
             <DashboardComponent showVehicleInfo={showVehicleInfo} hideVehicleInfo={hideVehicleInfo}
-                                wallboxes={wallboxes}/>
+                                wallboxes={wallboxes} vehicleInfo={vehicleInfo}/>
         );
     }
 }

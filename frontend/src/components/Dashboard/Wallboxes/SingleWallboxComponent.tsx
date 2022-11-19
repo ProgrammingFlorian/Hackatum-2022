@@ -5,6 +5,8 @@ import {VehicleInfo} from "../../../model/VehicleInfo";
 interface SingleWallboxComponentProps {
     name: string;
     wallbox: Wallbox;
+
+    showVehicleInfo: (vehicleInfo: VehicleInfo) => void;
 }
 
 const SingleWallboxComponent = (props: SingleWallboxComponentProps) => {
@@ -13,7 +15,7 @@ const SingleWallboxComponent = (props: SingleWallboxComponentProps) => {
             <h3>{props.name}</h3>
             {props.wallbox.vehicles.map((vehicle: VehicleInfo) => {
                 return (
-                    <SingleWallboxVehicleComponent vehicle={vehicle}/>
+                    <SingleWallboxVehicleComponent vehicle={vehicle} showVehicleInfo={props.showVehicleInfo}/>
                 )
             })}
         </div>
