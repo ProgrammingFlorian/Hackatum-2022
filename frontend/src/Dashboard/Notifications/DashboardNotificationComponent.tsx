@@ -6,9 +6,9 @@ interface DashboardNotificationComponentProps {
 
 const DashboardNotificationComponent = (props: DashboardNotificationComponentProps) => {
     return (
-        <div className="row bg-white">
+        <div className="row">
             {props.notifications.map((notification: SingleNotificationComponentProps) => {
-                return (<div className="col">
+                return (<div className="w-100 py-2">
                     <SingleNotificationComponent name={notification.name}/>
                 </div>);
             })}

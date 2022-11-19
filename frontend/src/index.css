@@ -21,11 +21,51 @@ code {
     color: white !important;
 }
 
+.navbar-container {
+  height: 45px;
+  font-size: 20px;
+  color: gray;
+  font-family: "Helvetica Neue";
+}
+
 .nav-link, .nav-link.active {
     color: rgb(232, 232, 232) !important;
     font-size: 20px;
 }
 
 .nav-link.active {
-    color: white !important;
+  color: white !important;
+}
+
+.dashboard-component {
+  padding-top: 45px;
+  background-color: #333333;
+}
+
+.dashboard-info-component {
+  font-family: "Helvetica Neue";
+  font-weight: bold;
+  font-size: 30px;
+}
+
+hr.rounded {
+  border-top: 8px solid #000000;
+  border-radius: 5px;
+}
+
+hr.vertical {
+  border-left:    8px solid #000000;
+  height:         100vh;
+  width:          1px;
+  border-radius: 5px;
+}
+
+.notification-component {
+  border-radius: 5px;
+  background-color: #535353;
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
 }
