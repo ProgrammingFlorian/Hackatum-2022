@@ -12,11 +12,6 @@ code {
     monospace;
 }
 
-
-.color-orange {
-  background-color: #FF5F00;
-}
-
-.dashboard-button:hover {
-  text-decoration: underline;
+p {
+  color: white;
 }
