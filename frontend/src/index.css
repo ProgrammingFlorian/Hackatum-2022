@@ -13,7 +13,7 @@ code {
 }
 
 .container {
-    font-family: "Helvetica Neue";
+    font-family: "Helvetica Neue", "Open Sans", sans-serif;
 }
 
 .color-orange {
@@ -26,10 +26,10 @@ code {
 }
 
 .navbar-container {
-  height: 45px;
-  font-size: 20px;
-  color: gray;
-  font-family: "Helvetica Neue";
+    height: 45px;
+    font-size: 20px;
+    color: gray;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
 }
 
 .nav-link, .nav-link.active {
@@ -38,29 +38,29 @@ code {
 }
 
 .nav-link.active {
-  color: white !important;
+    color: white !important;
 }
 
 .dashboard-component {
-  padding-top: 45px;
-  background-color: #333333;
+    padding-top: 45px;
+    background-color: #333333;
 }
 
 .dashboard-info-component {
-  font-family: "Helvetica Neue";
-  font-weight: bold;
-  font-size: 30px;
+    font-family: "Helvetica Neue";
+    font-weight: bold;
+    font-size: 30px;
 }
 
 
 .notification-component {
-  border-radius: 5px;
-  background-color: #535353;
+    border-radius: 5px;
+    background-color: #535353;
 }
 
 h2 {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .wallbox-container {

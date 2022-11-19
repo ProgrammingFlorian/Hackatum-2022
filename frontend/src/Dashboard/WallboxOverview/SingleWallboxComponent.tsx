@@ -1,50 +1,50 @@
 export interface SingleWallboxComponentProps {
     name: string;
+    batteryPercentage: number;
 }
 
 const SingleWallboxComponent = (props: SingleWallboxComponentProps) => {
     const color_function = (percentage: number) => {
-        if (percentage < 21) {
+        if (percentage < 0.2) {
             return "rgba(255,41,41,0.77)"
-        } else if (percentage < 41) {
+        } else if (percentage < 0.4) {
             return "rgba(255,87,16,0.77)"
-        } else if (percentage < 61) {
+        } else if (percentage < 0.6) {
             return "rgba(227,176,27,0.77)"
-        } else if (percentage < 81) {
+        } else if (percentage < 0.8) {
             return "#4DC167"
         } else {
             return "#308540"
         }
     }
-    const percentage = 90;
     return (
         <div className="container text-white fw-bold pt-4">
             <h3>{props.name}</h3>
-                    <div className="progress " style={{height:"150px", width:"300px", background:"#535353"}}>
-                        <div className="progress-bar progress-bar-component" style={{width:percentage + "%", background:color_function(percentage)}}>
-                            <div className="container text-start overlay">
-                                <text style={{fontSize:"15px"}}>Charging: 92%</text>
-                                <h3 className="p-0 m-0 fw-bold pt-2">M-HT-0001</h3>
-                                <text style={{fontSize:"15px"}}>Mercedes Benz: A-Klasse</text>
-                                <br/>
-                                <br/>
-                                <div className="row align-items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                         className="bi bi-lightning-charge col-auto " viewBox="0 0 16 16">
-                                        <path
-                                            d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"/>
-                                    </svg>
-                                    <text className="col-auto px-0" style={{fontSize:"20px"}}>
-                                        12 minutes remaining
-                                    </text>
-                                </div>
-                            </div>
-                        </div>
-
-
+            <div className="progress position-relative" style={{height: "150px", width: "300px", background: "#535353"}}>
+                <div className="progress-bar progress-bar-component"
+                     style={{width: (props.batteryPercentage * 100) + "%", background: color_function(props.batteryPercentage)}}>
+                </div>
+                <div className="container text-start overlay pt-2">
+                    <text style={{fontSize: "15px"}}>Charging: {Math.round(props.batteryPercentage * 100)}%</text>
+                    <h3 className="p-0 m-0 fw-bold pt-2">M-HT-0001</h3>
+                    <text style={{fontSize: "15px"}}>Mercedes Benz: A-Klasse</text>
+                    <br/>
+                    <br/>
+                    <div className="row align-items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                             className="bi bi-lightning-charge col-auto " viewBox="0 0 16 16">
+                            <path
+                                d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"/>
+                        </svg>
+                        <text className="col-auto px-0" style={{fontSize: "20px"}}>
+                            12 minutes remaining
+                        </text>
+                    </div>
                 </div>
 
             </div>
+
+        </div>
     )
 };
 
