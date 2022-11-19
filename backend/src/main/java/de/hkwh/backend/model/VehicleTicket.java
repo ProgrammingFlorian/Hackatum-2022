@@ -12,12 +12,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "bookedVehicle")
-public class BookedVehicle {
+@Table(name = "vehicle_ticket")
+public class VehicleTicket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long b_id;
+    private long vt_id;
 
     @NotNull
     @Column(name = "v_id")
@@ -26,6 +26,9 @@ public class BookedVehicle {
     @NotNull
     @Column(name = "h_id")
     private long h_id;
+
+    @Column(name = "p_id")
+    private long p_id;
 
     @NotNull
     @Column(name = "checkin_date")
@@ -36,18 +39,12 @@ public class BookedVehicle {
 
     @NotNull
     @Column(name = "isActive")
-    private boolean isActive;
+    private int isActive;
 
-    @Column(name = "stellplatz")
-    private String stellplatz;
-
-    @Column(name = "priority")
-    private int priority;
-
-    public BookedVehicle(long v_id, long h_id, Timestamp checkinTimestamp) {
+    public VehicleTicket(long v_id, long h_id, Timestamp checkinTimestamp) {
         this.v_id = v_id;
         this.h_id = h_id;
         this.checkinTimestamp = checkinTimestamp;
-        this.isActive = true;
+        this.isActive = 1;
     }
 }
