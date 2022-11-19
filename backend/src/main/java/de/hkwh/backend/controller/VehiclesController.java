@@ -1,8 +1,6 @@
 package de.hkwh.backend.controller;
 
 import de.hkwh.backend.datatransferobjects.VehicleDTO;
-import de.hkwh.backend.datatransferobjects.VehicleTicketDTO;
-import de.hkwh.backend.model.Vehicle;
 import de.hkwh.backend.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -42,7 +40,7 @@ public class VehiclesController {
     }
 
     @PostMapping("/vehicle/checkin/{plate}/{hub}")
-    public ResponseEntity<VehicleTicketDTO> checkInVehicle(@PathVariable String plate, @PathVariable long hub)
+    public ResponseEntity<VehicleDTO> checkInVehicle(@PathVariable String plate, @PathVariable long hub)
     {
         return new ResponseEntity<>(vehicleService.checkIn(plate, hub), HttpStatus.OK);
     }

@@ -31,10 +31,15 @@ public class Model {
     @Column(name = "charging_speed")
     private int chargingSpeed;
 
-    public Model(String vehicleClass, String brand, String model, int chargingSpeed) {
+    @NotNull
+    @Column(name = "battery_capacity")
+    private int batteryCapacity;
+
+    public Model(String vehicleClass, String brand, String model, int chargingSpeed, int batteryCapacity) {
         this.vehicleClass = vehicleClass;
         this.brand = brand;
         this.model = model;
         this.chargingSpeed = chargingSpeed;
+        this.batteryCapacity = batteryCapacity;
     }
 }

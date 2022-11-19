@@ -1,15 +1,15 @@
 package de.hkwh.backend.service;
 
-import de.hkwh.backend.model.Hub;
-import de.hkwh.backend.model.Model;
-import de.hkwh.backend.model.Parkingspot;
-import de.hkwh.backend.model.Vehicle;
+import de.hkwh.backend.model.*;
 import de.hkwh.backend.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.annotation.PostConstruct;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Random;
 
 @Configuration
 @EnableScheduling
@@ -31,6 +31,8 @@ public class MockService {
         Vehicle[] vehicleArray = setupVehicles(modelArray);
         Hub hub = setupHub();
         Parkingspot[] parkingSpotArray = setupParkingSpots(hub);
+        VehicleTicket[] ticketArray = setupTickets(vehicleArray, hub, parkingSpotArray);
+        VehicleTask[] taskArray = setupTasks(ticketArray, parkingSpotArray);
     }
 
     private void clearDatabases() {
@@ -44,9 +46,9 @@ public class MockService {
     }
 
     private Model[] setupModels() {
-        Model eqa = new Model("Electric SUV", "Mercedes", "EQA", 112);
-        Model eTron = new Model("Electric sports car", "Audi", "e-Tron GT", 268);
-        Model i4 = new Model("Middle class", "BMW", "i4", 207);
+        Model eqa = new Model("Electric SUV", "Mercedes", "EQA", 112, 69);
+        Model eTron = new Model("Electric sports car", "Audi", "e-Tron GT", 268, 93);
+        Model i4 = new Model("Middle class", "BMW", "i4", 207, 84);
 
         eqa = models.save(eqa);
         eTron = models.save(eTron);
@@ -99,5 +101,39 @@ public class MockService {
         return new Parkingspot[]{w1, w2, p1, p2, p3, p4};
     }
 
+    private VehicleTicket[] setupTickets(Vehicle[] vehicles, Hub hub, Parkingspot[] spots)
+    {
+        VehicleTicket t1 = new VehicleTicket(vehicles[0].getV_id(), hub.getH_id(), spots[0].getP_id(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusHours(3)), randomNextCustomer(), true);
+        VehicleTicket t2 = new VehicleTicket(vehicles[2].getV_id(), hub.getH_id(), spots[1].getP_id(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusHours(2)), randomNextCustomer(), true);
+        VehicleTicket t3 = new VehicleTicket(vehicles[1].getV_id(), hub.getH_id(), spots[2].getP_id(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusHours(2)), randomNextCustomer(), true);
+        VehicleTicket t4 = new VehicleTicket(vehicles[4].getV_id(), hub.getH_id(), spots[3].getP_id(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusHours(1)), randomNextCustomer(), true);
 
+        t1 = vehicleTickets.save(t1);
+        t2 = vehicleTickets.save(t2);
+        t3 = vehicleTickets.save(t3);
+        t4 = vehicleTickets.save(t4);
+
+        return new VehicleTicket[]{t1, t2, t3, t4};
+    }
+
+    private VehicleTask[] setupTasks(VehicleTicket[] tickets, Parkingspot[] spots)
+    {
+        VehicleTask ta1 = new VehicleTask(tickets[0].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now()), tickets[0].getP_id(), spots[4].getP_id(), false);
+        VehicleTask ta2 = new VehicleTask(tickets[1].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusHours(1)), tickets[1].getP_id(), spots[2].getP_id(), false);
+        VehicleTask ta3 = new VehicleTask(tickets[2].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusHours(1)), tickets[2].getP_id(), spots[1].getP_id(), false);
+        VehicleTask ta4 = new VehicleTask(tickets[3].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now()), tickets[3].getP_id(), spots[0].getP_id(), false);
+
+        ta1 = vehicleTasks.save(ta1);
+        ta2 = vehicleTasks.save(ta2);
+        ta3 = vehicleTasks.save(ta3);
+        ta4 = vehicleTasks.save(ta4);
+
+        return new VehicleTask[]{ta1, ta2, ta3, ta4};
+    }
+
+    private String randomNextCustomer() {
+        Random random = new Random();
+        String[] customerNames = new String[]{"Max Meier", "Sabine Müller", "Franz Schmid", "Josef Bauer" , "Alex Maier"};
+        return customerNames[random.nextInt(0,5)];
+    }
 }

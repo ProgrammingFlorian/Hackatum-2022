@@ -50,4 +50,14 @@ public class VehicleTicket {
         this.isActive = 1;
         this.nextCustomer = next;
     }
+
+    public VehicleTicket(long v_id, long h_id, long p_id, Timestamp checkinTimestamp, Timestamp checkoutTimestamp, String nextCustomer, boolean isActive) {
+        this.v_id = v_id;
+        this.h_id = h_id;
+        this.p_id = p_id;
+        this.checkinTimestamp = checkinTimestamp;
+        this.checkoutTimestamp = checkoutTimestamp;
+        this.nextCustomer = nextCustomer;
+        this.isActive = isActive?1:0;
+    }
 }
