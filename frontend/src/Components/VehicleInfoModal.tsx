@@ -1,13 +1,19 @@
 import { VehicleInfo } from "../Model/VehicleInfo"
 
 interface VehicleInfoModalProps {
-    vehicleInfo: VehicleInfo;
+    vehicleInfo?: VehicleInfo;
 }
 
 /**
  * Component that pops up when clicking on any car or checking in a car by qr code.
  */
 const VehicleInfoModal = (props: VehicleInfoModalProps) => {
+    if(!props.vehicleInfo) {
+        return (
+          <></>
+        );
+    }
+
     return (
         <div className="modal modal-tour position-static d-block bg-secondary py-5" tabIndex={-1} role="dialog" id="modalTour"> only for debugging! this background div should be deleted once embedded
             <div className="modal-dialog" role="document">
