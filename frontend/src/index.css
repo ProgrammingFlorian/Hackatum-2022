@@ -1,13 +1,98 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #333333 !important;
+    user-select: none;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.container {
+    font-family: "Helvetica Neue", "Open Sans", sans-serif;
+}
+
+.color-orange {
+    background-color: #FF5F00;
+}
+
+.nav-link.active, .nav-link:hover {
+    text-decoration: underline;
+    color: white !important;
+}
+
+.navbar-container {
+    height: 45px;
+    font-size: 20px;
+    color: gray;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+}
+
+.nav-link, .nav-link.active {
+    color: rgb(232, 232, 232) !important;
+    font-size: 20px;
+}
+
+.nav-link.active {
+    color: white !important;
+}
+
+.dashboard-component {
+    padding-top: 45px;
+    background-color: #333333;
+}
+
+
+
+.dashboard-info-component {
+    font-family: "Helvetica Neue";
+    font-weight: bold;
+    font-size: 30px;
+}
+
+
+.notification-component {
+    border-radius: 5px;
+    background-color: #535353;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.wallbox-container {
+    border-radius: 5px;
+    background-color: #535353;
+}
+
+.progress-bar-component {
+    background-color: rgba(192, 149, 24, 0.77);
+}
+
+.overlay {
+    z-index: 10;
+    position: absolute;
+}
+
+.center {
+    position: relative;
+    background-color: rgba(0, 191, 165, 0);
+    color: white;
+    font-size: large;
+}
+
+.info-component {
+    border-radius: 5px;
+    background-color: #535353;
+}
+
+.bg-opacity-95 {
+    --bs-bg-opacity: 0.95;
 }
