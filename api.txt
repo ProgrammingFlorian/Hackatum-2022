@@ -1,7 +1,5 @@
-Some Ideas for the API:
+/scheduling
 
-
-GET /wallboxes
 [
     {
         name: <name>,
@@ -12,36 +10,19 @@ GET /wallboxes
     }
 ]
 
+/tasks
 
-GET /tasks
 [
     {
-        vehicleId: <vehicleId>,
+        vehicle: <vehicle>,
         fromId: <id>,
         toId: <id>
     }
 ]
 
-
-GET /vehicles
+/vehicles
 [
-    <vehicle> (see below)
+    {
+        
+    }    
 ]
-
-
-GET /vehicle/<id>
-{
-    modelId: <modelId>,
-    vehicleId: <vehicleId>,
-    licensePlate: <licensePlate>,
-    batteryLevel: <batteryLevel>,
-    isCharging: <isCharging>,
-    hubLocation: <hubLocation>,
-    currentParkingSpot: <parkingSpot>,
-    desiredParkingSpot: <parkingSpot>
-}
-
-POST /vehicle/check-in?id=<id>
-{
-    id: <id>
-}
