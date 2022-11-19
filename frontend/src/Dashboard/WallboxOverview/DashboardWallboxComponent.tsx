@@ -1,15 +1,17 @@
-import SingleWallboxComponent, {SingleWallboxComponentProps} from "./SingleWallboxComponent";
+import SingleWallboxComponent from "./SingleWallboxComponent";
+import {Wallbox} from "../../Model/Wallbox";
+import {VehicleInfo} from "../../Model/VehicleInfo";
 
 interface DashboardWallboxComponentProps {
-    wallboxes: SingleWallboxComponentProps[];
+    wallboxes: Wallbox[];
 }
 
 const DashboardWallboxComponent = (props: DashboardWallboxComponentProps) => {
     return (
         <div className="row align-items-center ">
-            {props.wallboxes.map((wallbox: SingleWallboxComponentProps) => {
+            {props.wallboxes.map((wallbox: Wallbox, index) => {
                 return (<div className="col-auto">
-                    <SingleWallboxComponent name={wallbox.name} batteryPercentage={wallbox.batteryPercentage}/>
+                    <SingleWallboxComponent name={`Wallbox ${index}`} wallbox={wallbox}/>
                 </div>);
             })}
         </div>

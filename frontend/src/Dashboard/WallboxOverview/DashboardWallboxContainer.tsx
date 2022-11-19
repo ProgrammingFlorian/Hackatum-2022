@@ -1,12 +1,12 @@
 import DashboardWallboxComponent from "./DashboardWallboxComponent";
+import {Wallbox} from "../../Model/Wallbox";
 
-const DashboardWallboxContainer = () => {
-    return <DashboardWallboxComponent wallboxes={[
-        {name: "Wallbox 1", batteryPercentage: 0.30},
-        {name: "Wallbox 2", batteryPercentage: 0.58},
-        {name: "Wallbox 3", batteryPercentage: 0.92},
-        {name: "Wallbox 4", batteryPercentage: 0.13}
-    ]}/>;
+interface DashboardWallboxContainerProps {
+    wallboxes: Wallbox[];
+}
+
+const DashboardWallboxContainer = (props: DashboardWallboxContainerProps) => {
+    return <DashboardWallboxComponent wallboxes={props.wallboxes}/>;
 };
 
 export default DashboardWallboxContainer;
