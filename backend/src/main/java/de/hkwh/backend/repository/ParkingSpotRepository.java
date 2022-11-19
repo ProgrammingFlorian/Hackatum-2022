@@ -10,11 +10,16 @@ import java.util.Optional;
 
 public interface ParkingSpotRepository extends CrudRepository <Parkingspot, Long>{
 
-    //Optional<List<Parkingspot>> findAllByFreeTrue();
 
     @Query(
         value = "Select * From parking_spot WHERE is_free >= 1 LIMIT 1",
         nativeQuery = true
     )
     Optional<Parkingspot> findFirstFree();
+
+    @Query(
+            value = "Select * From parking_spot WHERE has_wallbox >= 1",
+            nativeQuery = true
+    )
+    Optional<List<Parkingspot>> findWallboxes();
 }

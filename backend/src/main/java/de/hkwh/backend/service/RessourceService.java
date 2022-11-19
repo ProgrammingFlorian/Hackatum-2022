@@ -1,6 +1,8 @@
 package de.hkwh.backend.service;
 
 import de.hkwh.backend.datatransferobjects.VehicleDTO;
+import de.hkwh.backend.datatransferobjects.VehicleSchedulingDTO;
+import de.hkwh.backend.datatransferobjects.WallboxDTO;
 import de.hkwh.backend.model.*;
 import de.hkwh.backend.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -9,13 +11,15 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
-public class VehicleService {
+public class RessourceService {
 
     private final HubRepository hubs;
     private final ParkingSpotRepository parkingSpots;
@@ -25,6 +29,20 @@ public class VehicleService {
     private final VehicleTaskRepository vehicleTasks;
 
 
+
+    public WallboxDTO[] getWallboxes() {
+        List<Parkingspot> wallboxList = parkingSpots.findWallboxes().orElseThrow();
+        List<VehicleSchedulingDTO[]> scheduledVehicleArrays = createMockScheduling(wallboxList.size());
+        WallboxDTO[] wallboxDTOs = new WallboxDTO[wallboxList.size()];
+
+        for (int i = 0; i < wallboxDTOs.length; i++) {
+            wallboxDTOs[i] = createWallboxDTO(wallboxList.get(i), scheduledVehicleArrays.get(i));
+        }
+
+        //@Todo include Scheduling Informationen to Wallbox
+
+        return wallboxDTOs;
+    }
 
     public VehicleDTO[] getVehicles() {
         var vehicleIterable = vehicles.findAll();
@@ -91,6 +109,35 @@ public class VehicleService {
             return VehicleDTO.of(vehicle, model);
         }
         return VehicleDTO.of(vehicle, model, ticket);
+    }
+
+    private WallboxDTO createWallboxDTO(Parkingspot spot, VehicleSchedulingDTO[] schedulingVehicles)
+    {
+        Hub hub = hubs.findByH_id(spot.getH_id()).orElseThrow();
+        return WallboxDTO.of(spot,hub, schedulingVehicles);
+    }
+
+    private List<VehicleSchedulingDTO[]> createMockScheduling(int amount) {
+        ArrayList<VehicleSchedulingDTO[]> scheduledVehiclesList = new ArrayList<>();
+
+        for (int i = 1 ; i <= amount ; i++) {
+            List<Vehicle> vehicleList = vehicles.getRandom(i).orElseThrow();
+            List<VehicleSchedulingDTO> scheduledVehicleDTOList = new ArrayList<>(vehicleList.stream()
+                    .map(this::createMockVehicleSchedulingDTO)
+                    .toList());
+
+            scheduledVehicleDTOList.sort(Comparator.comparing(VehicleSchedulingDTO::queuePosition));
+
+            VehicleSchedulingDTO[] scheduledVehicleDTOArray = scheduledVehicleDTOList.toArray(VehicleSchedulingDTO[]::new);
+            scheduledVehiclesList.add(scheduledVehicleDTOArray);
+        }
+
+        return scheduledVehiclesList;
+    }
+
+    private VehicleSchedulingDTO createMockVehicleSchedulingDTO(Vehicle vehicle) {
+        Random random = new Random();
+        return VehicleSchedulingDTO.of(createVehicleDTO(vehicle), random.nextInt(0, 5));
     }
 
     private String randomNextCustomer() {

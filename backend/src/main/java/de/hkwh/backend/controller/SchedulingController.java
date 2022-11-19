@@ -1,7 +1,12 @@
 package de.hkwh.backend.controller;
 
 import de.hkwh.backend.datatransferobjects.DashboardDTO;
+import de.hkwh.backend.datatransferobjects.TaskDTO;
+import de.hkwh.backend.datatransferobjects.WallboxDTO;
+import de.hkwh.backend.service.SchedulingService;
+import de.hkwh.backend.service.RessourceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:3000")
 public class SchedulingController {
 
+    private final SchedulingService scheduler;
+    private final RessourceService ressourceService;
     @GetMapping("/dashboard")
     public ResponseEntity<DashboardDTO> getDashboard() {
-
-        return null;
+        TaskDTO[] tasks = scheduler.getTasks();
+        WallboxDTO[] wallboxes = ressourceService.getWallboxes();DashboardDTO.of(wallboxes, tasks);
+        return new ResponseEntity<>(DashboardDTO.of(wallboxes, tasks), HttpStatus.OK);
     }
 
 }
