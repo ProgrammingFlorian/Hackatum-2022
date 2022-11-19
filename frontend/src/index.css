@@ -31,7 +31,7 @@ code {
     height: 45px;
     font-size: 20px;
     color: gray;
-    font-family: "Helvetica Neue", "Arial", sans-serif;
+    font-family: "Helvetica Neue", "Open Sans", sans-serif;
 }
 
 .nav-link, .nav-link.active {
@@ -51,7 +51,7 @@ code {
 
 
 .dashboard-info-component {
-    font-family: "Helvetica Neue";
+    font-family: "Helvetica Neue", "Open Sans", sans-serif;
     font-weight: bold;
     font-size: 30px;
 }

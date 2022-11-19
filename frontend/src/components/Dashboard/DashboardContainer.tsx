@@ -3,15 +3,19 @@ import {useEffect, useState} from "react";
 import {VehicleInfoDTO} from "../../model/VehicleInfoDTO";
 import {Requests} from "../../common/requests";
 import {apiDashboard, apiVehicleCheckinRoute} from "../../common/apiRoutes";
-import {SuccessDTO} from "../../model/SuccessDTO";
 import {WallboxDTO} from "../../model/WallboxDTO";
 import {LoadingComponent} from "../LoadingComponent";
 import {DashboardDTO} from "../../model/DashboardDTO";
 import {TaskDTO} from "../../model/TaskDTO";
+import {useNavigate} from "react-router-dom";
+import {dashboardVehicleInfoRoute} from "../../common/pageRoutes";
 
 const DashboardContainer = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const checkin = urlParams.get("checkin");
+    const checkinPlate = urlParams.get("plate");
+    const vehicleInfoParam = urlParams.get("vehicle");
+
+    const navigate = useNavigate();
 
     const [vehicleInfo, setVehicleInfo] = useState<VehicleInfoDTO | null>(null);
     const [vehicleInfoTasks, setVehicleInfoTasks] = useState<TaskDTO[]>([]);
@@ -53,29 +57,21 @@ const DashboardContainer = () => {
     }
 
     useEffect(() => {
-        if (checkin) {
-            const vehicleId = Number(checkin);
-            Requests.postRequest<SuccessDTO>(apiVehicleCheckinRoute(vehicleId), {}).then(success => {
-                if (success.vehicleId) {
-                    loadWallboxes().then(() => {
-                        const vehicle = getVehicleById(vehicleId);
-                        if (vehicle !== null) {
-                            showVehicleInfo(vehicle);
-                        }
-                    });
-                } else {
-                    console.log("Checkin failed!");
-                }
+        if (checkinPlate) {
+            Requests.postRequest<VehicleInfoDTO>(apiVehicleCheckinRoute(checkinPlate), {}).then(vehicle => {
+                loadWallboxes().then(() => {
+                    navigate(dashboardVehicleInfoRoute(vehicle.v_id));
+                });
             });
         }
         loadWallboxes();
-    });
+    }, [checkinPlate]);
 
     if (wallboxes === null) {
         return LoadingComponent({
             message: "Lade..."
         });
-    } else if (checkin !== null) {
+    } else if (checkinPlate !== null) {
         return LoadingComponent({
             message: "Currently checking in your vehicle..."
         });
