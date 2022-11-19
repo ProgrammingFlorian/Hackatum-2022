@@ -1,11 +1,13 @@
+import { Task } from "./Task";
+
 /**
  * Data displayed on AutoInfoModal.
  */
 export interface VehicleInfo {
-    id: number;
+    vehicleId: number;
     licensePlate: string;
     color: string;
     nextPickUpTime: Date;
     nextPickUpCustomer: Date;
-    upcomingTasks: string[];
+    upcomingTasks: Task[];
 }
