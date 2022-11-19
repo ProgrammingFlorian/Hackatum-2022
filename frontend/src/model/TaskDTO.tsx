@@ -1,17 +1,18 @@
 export interface TaskDTO {
-    vtaId: number;
-    ticketId: number;
-    vehicle: number;
+    vta_id: number;
+    vt_id: number;
+    v_id: number;
 
     licensePlate: string;
-    vehicleClass: string;
     brand: string;
     model: string;
+    vehicleClass: string;
 
-    fromPId: number;
-    toPId: number;
+    from_p_id: number;
+    to_p_id: number;
 
     taskName: string;
 
     dateTime: Date;
+    fulfilled: boolean;
 }

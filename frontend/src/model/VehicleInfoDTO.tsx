@@ -2,7 +2,7 @@
  * Data displayed on AutoInfoModal.
  */
 export interface VehicleInfoDTO {
-    vehicleId: number;
+    v_id: number;
 
     vehicleClass: string;
     brand: string;
@@ -13,7 +13,8 @@ export interface VehicleInfoDTO {
 
     chargingSpeed: number;
     batteryLevel: number;
+    batteryCapacity: number;
 
-    nextPickUpTime: Date;
-    nextPickUpCustomer: string;
+    checkout_date: Date;
+    nextCustomer: string;
 }

@@ -1,5 +1,10 @@
 import {VehicleScheduleDTO} from "./VehicleScheduleDTO";
 
 export interface WallboxDTO {
-    vehicles: VehicleScheduleDTO[];
+    p_id: number;
+    h_id:  number;
+    spotName: string;
+    isFree: boolean;
+    chargingSpeed: number
+    vehicles_scheduled: VehicleScheduleDTO[];
 }
