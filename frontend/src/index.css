@@ -12,6 +12,21 @@ code {
     monospace;
 }
 
-p {
-  color: white;
+
+.color-orange {
+  background-color: #FF5F00;
+}
+
+.dashboard-button:hover {
+  text-decoration: underline;
+}
+
+.navbar-container {
+  height: 45px;
+  font-size: 20px;
+  color: gray;
+}
+
+.dashboard-component {
+  padding-top: 45px;
 }

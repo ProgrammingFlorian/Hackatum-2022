@@ -4,7 +4,7 @@ import DashboardNotificationContainer from "./Notifications/DashboardNotificatio
 
 const DashboardComponent = () => {
     return (
-        <div className="container-fluid">
+        <div className="container-fluid dashboard-component">
             <div className="container-fluid">
                 <DashboardInfoComponent/>
             </div>
