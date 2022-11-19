@@ -1,7 +1,7 @@
 const DashboardComponent = () => {
     return (
         <div className="container">
-            <h2 className="text-white text-center">404 Not Found</h2>
+            <h2 className="text-white text-center pt-4">44 Not Found</h2>
         </div>
     )
 }
