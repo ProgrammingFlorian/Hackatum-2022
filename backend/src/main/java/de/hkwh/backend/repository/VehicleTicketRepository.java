@@ -22,7 +22,7 @@ public interface VehicleTicketRepository extends CrudRepository <VehicleTicket, 
     Optional<VehicleTicket> findByVt_id(@Param("vt_id")long vt_id);
 
     @Query(
-            value = "UPDATE vehicle_tickt Set is_active = 0 Where v_id = :v_id",
+            value = "UPDATE vehicle_ticket Set is_active = 0 Where v_id = :v_id",
             nativeQuery = true
     )
     void updateActive(@Param("v_id") long v_id);
