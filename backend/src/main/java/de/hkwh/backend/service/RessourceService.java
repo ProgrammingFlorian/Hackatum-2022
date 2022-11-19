@@ -64,11 +64,11 @@ public class RessourceService {
     }
 
     @Modifying
-    public VehicleDTO checkIn(String licencePlate, long h_id)
+    public VehicleDTO checkIn(String licencePlate)
     {
         Vehicle vehicle = vehicles.findByLicensePlate(licencePlate).orElseThrow();
         Model model = models.findByM_id(vehicle.getM_id()).orElseThrow();
-        Hub hub = hubs.findByH_id(h_id).orElseThrow();
+        Hub hub = hubs.findFirst().orElseThrow();
         Parkingspot parkingspot = parkingSpots.findFirstFree().orElseThrow();
 
         VehicleTicket ticket = new VehicleTicket(vehicle.getV_id(), hub.getH_id(), Timestamp.valueOf(LocalDateTime.now()), randomNextCustomer());
