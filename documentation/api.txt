@@ -1,5 +1,7 @@
-/wallboxes
+Some Ideas for the API:
 
+
+GET /wallboxes
 [
     {
         name: <name>,
@@ -10,19 +12,36 @@
     }
 ]
 
-/tasks
 
+GET /tasks
 [
     {
-        vehicle: <vehicle>,
+        vehicleId: <vehicleId>,
         fromId: <id>,
         toId: <id>
     }
 ]
 
-/vehicles
+
+GET /vehicles
 [
-    {
-        
-    }    
+    <vehicle> (see below)
 ]
+
+
+GET /vehicle/<id>
+{
+    modelId: <modelId>,
+    vehicleId: <vehicleId>,
+    licensePlate: <licensePlate>,
+    batteryLevel: <batteryLevel>,
+    isCharging: <isCharging>,
+    hubLocation: <hubLocation>,
+    currentParkingSpot: <parkingSpot>,
+    desiredParkingSpot: <parkingSpot>
+}
+
+POST /vehicle/check-in?id=<id>
+{
+    id: <id>
+}
