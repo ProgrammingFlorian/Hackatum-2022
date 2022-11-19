@@ -20,12 +20,12 @@ const DashboardComponent = (props: DashboardComponentProps) => {
                 <div className="container-fluid p-0">
                     <DashboardWelcomeComponent/>
                 </div>
-                <div className="row justify-content-center m-0">
-                    <div className="container col-md-7">
+                <div className="row justify-content-evenly">
+                    <div className="container col-md-8  justify-content-center">
                         <DashboardWallboxContainer wallboxes={props.wallboxes} showVehicleInfo={props.showVehicleInfo}/>
                     </div>
-                    <div className="col-md-4" style={{borderLeft: "2px solid rgba(0, 0, 0, 0.15)"}}>
-                        <h3 className="text-white fw-bold pt-4">
+                    <div className="col-md-3" style={{borderLeft: "2px solid rgba(0, 0, 0, 0.15)"}}>
+                        <h3 className="text-white fw-bold pt-4 mx-3">
                            Notifications:
                         </h3>
                         <div className="container">

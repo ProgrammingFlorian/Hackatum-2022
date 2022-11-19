@@ -54,6 +54,20 @@ const DashboardContainer = () => {
                         brand: "Audi"
                     }
                 ]
+            },
+            {
+                vehicles: [
+                    {
+                        vehicleId: 4,
+                        color: 'red',
+                        licensePlate: 'M SX 0001',
+                        nextPickUpCustomer: new Date(),
+                        upcomingTasks: [],
+                        nextPickUpTime: new Date(),
+                        batteryLevel: 20,
+                        brand: "Audi"
+                    }
+                ]
             }
         ]);
     };
