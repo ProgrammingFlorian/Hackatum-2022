@@ -6,9 +6,9 @@ interface DashboardWallboxComponentProps {
 
 const DashboardWallboxComponent = (props: DashboardWallboxComponentProps) => {
     return (
-        <div className="row bg-white align-items-center ">
+        <div className="row align-items-center ">
             {props.wallboxes.map((wallbox: SingleWallboxComponentProps) => {
-                return (<div className="col">
+                return (<div className="col-auto">
                     <SingleWallboxComponent name={wallbox.name}/>
                 </div>);
             })}
