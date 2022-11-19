@@ -10,7 +10,7 @@ const DashboardTaskComponent = (props: DashboardTaskComponentProps) => {
         <div className="row">
             {props.tasks.map((task: TaskDTO) => {
                 return (<div className="w-100 py-2">
-                    <SingleNotificationComponent name={task.taskName}/>
+                    <SingleNotificationComponent task={task}/>
                 </div>);
             })}
         </div>

@@ -37,8 +37,8 @@ const SingleWallboxVehicleComponent = (props: SingleWallboxVehicleComponentProps
             </div>
             <div className="container text-start overlay pt-2">
                 <text style={{fontSize: "15px"}}>Charging: {Math.round(props.vehicle.batteryLevel)}%</text>
-                <h3 className="p-0 m-0 fw-bold pt-2">M-HT-0001</h3>
-                <text style={{fontSize: "15px"}}>Mercedes Benz: A-Klasse</text>
+                <h3 className="p-0 m-0 fw-bold pt-2">{props.vehicle.licensePlate}</h3>
+                <text style={{fontSize: "15px"}}>{props.vehicle.brand}: {props.vehicle.model}</text>
                 <br/>
                 <br/>
                 <div className="row align-items-start">
