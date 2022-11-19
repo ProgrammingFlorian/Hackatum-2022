@@ -44,8 +44,8 @@ const VehicleInfoModalContainer = (props: AutoInfoModalContainerProps) => {
         setVehicleInfo(vehicleInfo);
     }
 
-    checkInVehicle();
-    getAndSetVehicleInfo();
+    // checkInVehicle();
+    // getAndSetVehicleInfo();
 
     return (
         <AutoInfoModal vehicleInfo={vehicleInfo!} />
