@@ -1,6 +1,6 @@
 import {VehicleInfoDTO} from "./VehicleInfoDTO";
 
 export interface VehicleScheduleDTO {
-    position: number;
+    queuePosition: number;
     vehicle: VehicleInfoDTO;
 }

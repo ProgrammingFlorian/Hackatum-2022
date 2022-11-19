@@ -29,14 +29,19 @@ public class Vehicle {
     @Column(name = "battery_level")
     private int batteryLevel;
 
+    @Column(name = "color")
+    private String color;
+
+
     public Vehicle(long m_id, String licensePlate) {
         this.m_id = m_id;
         this.licensePlate = licensePlate;
     }
 
-    public Vehicle(long m_id, String licensePlate, int batteryLevel) {
+    public Vehicle(long m_id, String licensePlate, int batteryLevel, String color) {
         this.m_id = m_id;
         this.licensePlate = licensePlate;
         this.batteryLevel = batteryLevel;
+        this.color = color;
     }
 }
