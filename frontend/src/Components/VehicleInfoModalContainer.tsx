@@ -17,9 +17,9 @@ const VehicleInfoModalContainer = (props: AutoInfoModalContainerProps) => {
         })
     });
 
-    return (
+    return vehicleInfo ? (
         <AutoInfoModal vehicleInfo={vehicleInfo} />
-    );
+    ) : <></>;
 
 };
 
