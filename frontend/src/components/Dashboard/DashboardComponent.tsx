@@ -1,15 +1,15 @@
 import DashboardWelcomeComponent from "./Welcome/DashboardWelcomeComponent";
 import DashboardWallboxContainer from "./Wallboxes/DashboardWallboxContainer";
 import DashboardNotificationContainer from "./Notifications/DashboardNotificationContainer";
-import {Wallbox} from "../../model/Wallbox";
-import {VehicleInfo} from "../../model/VehicleInfo";
+import {WallboxDTO} from "../../model/WallboxDTO";
+import {VehicleInfoDTO} from "../../model/VehicleInfoDTO";
 import VehicleInfoContainer from "../VehicleInformation/VehicleInfoContainer";
 
 interface DashboardComponentProps {
-    wallboxes: Wallbox[];
-    vehicleInfo: VehicleInfo | null;
+    wallboxes: WallboxDTO[];
+    vehicleInfo: VehicleInfoDTO | null;
 
-    showVehicleInfo: (vehicleInfo: VehicleInfo) => void;
+    showVehicleInfo: (vehicleInfo: VehicleInfoDTO) => void;
     hideVehicleInfo: () => void;
 }
 

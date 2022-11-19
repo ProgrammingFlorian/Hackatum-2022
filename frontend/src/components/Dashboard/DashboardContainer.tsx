@@ -1,18 +1,18 @@
 import DashboardComponent from "./DashboardComponent";
 import {useEffect, useState} from "react";
-import {VehicleInfo} from "../../model/VehicleInfo";
+import {VehicleInfoDTO} from "../../model/VehicleInfoDTO";
 import {Requests} from "../../common/requests";
 import {apiVehicleCheckinRoute, apiVehicleInfoRoute} from "../../common/apiRoutes";
 import {SuccessDTO} from "../../model/SuccessDTO";
-import {Wallbox} from "../../model/Wallbox";
+import {WallboxDTO} from "../../model/WallboxDTO";
 import {LoadingComponent} from "../LoadingComponent";
 
 const DashboardContainer = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const checkin = urlParams.get("checkin");
 
-    const [vehicleInfo, setVehicleInfo] = useState<VehicleInfo | null>(null);
-    const [wallboxes, setWallboxes] = useState<Wallbox[] | null>(null);
+    const [vehicleInfo, setVehicleInfo] = useState<VehicleInfoDTO | null>(null);
+    const [wallboxes, setWallboxes] = useState<WallboxDTO[] | null>(null);
 
     const loadWallboxes = () => {
         // TODO
@@ -55,8 +55,8 @@ const DashboardContainer = () => {
         ]);
     };
 
-    const showVehicleInfo = (vehicleInfo: VehicleInfo) => {
-        /*Requests.getRequest<VehicleInfo>(apiVehicleInfoRoute(vehicleId)).then((vehicle) => {
+    const showVehicleInfo = (vehicleInfo: VehicleInfoDTO) => {
+        /*Requests.getRequest<VehicleInfoDTO>(apiVehicleInfoRoute(vehicleId)).then((vehicle) => {
             setVehicleInfo(vehicle)
         });*/
         setVehicleInfo(vehicleInfo);
