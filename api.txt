@@ -1,0 +1,28 @@
+/wallboxes
+
+[
+    {
+        name: <name>,
+        wallboxId: <id>,
+        vehicles: [
+            <vehicles>
+        ]
+    }
+]
+
+/tasks
+
+[
+    {
+        vehicle: <vehicle>,
+        fromId: <id>,
+        toId: <id>
+    }
+]
+
+/vehicles
+[
+    {
+        
+    }    
+]

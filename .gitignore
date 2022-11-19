@@ -119,3 +119,5 @@ yarn-error.log*
 # Key files
 private.key
 public.pub
+
+/gradle/
