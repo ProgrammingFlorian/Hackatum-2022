@@ -12,6 +12,7 @@ const DashboardWallboxComponent = (props: DashboardWallboxComponentProps) => {
     return (
         <div className="row align-items-start ">
             {props.wallboxes.map((wallbox: WallboxDTO, index) => {
+                // TODO Marius
                 return (<div className="col-auto">
                     <SingleWallboxComponent name={`Wallbox ${index}`} wallbox={wallbox}
                                             showVehicleInfo={props.showVehicleInfo}/>
