@@ -9,8 +9,9 @@ export interface TaskDTO {
     vehicleClass: string;
 
     from_p_id: number;
+    from_p_name: string;
     to_p_id: number;
-
+    to_p_name: string;
     taskName: string;
 
     dateTime: Date;

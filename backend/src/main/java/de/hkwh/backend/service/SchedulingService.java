@@ -49,6 +49,8 @@ public class SchedulingService {
         VehicleTicket ticket = vehicleTickets.findByVt_id(task.getVt_id()).orElseThrow();
         Vehicle vehicle = vehicles.findByV_id(ticket.getV_id()).orElseThrow();
         Model model =  models.findByM_id(vehicle.getM_id()).orElseThrow();
-        return TaskDTO.of(task, ticket, vehicle,model);
+        Parkingspot from = parkingSpots.fincByP_id(task.getFrom_p_id()).orElseThrow();
+        Parkingspot to = parkingSpots.fincByP_id(task.getTo_p_id()).orElseThrow();
+        return TaskDTO.of(task, ticket, vehicle,model, from, to);
     }
 }
