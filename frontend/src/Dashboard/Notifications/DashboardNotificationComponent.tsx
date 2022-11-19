@@ -1,18 +1,17 @@
-const DashboardNotificationComponent = () => {
+import SingleNotificationComponent, {SingleNotificationComponentProps} from "./SingleNotificationComponent";
+
+interface DashboardNotificationComponentProps {
+    notifications: SingleNotificationComponentProps[];
+}
+
+const DashboardNotificationComponent = (props: DashboardNotificationComponentProps) => {
     return (
-        <div>
-            <div className="container">
-                <p>Notification 1</p>
-            </div>
-            <div className="container">
-                <p>Notification 2</p>
-            </div>
-            <div className="container">
-                <p>Notification 3</p>
-            </div>
-            <div className="container">
-                <p>Notification 4</p>
-            </div>
+        <div className="row bg-white">
+            {props.notifications.map((notification: SingleNotificationComponentProps) => {
+                return (<div className="col">
+                    <SingleNotificationComponent name={notification.name}/>
+                </div>);
+            })}
         </div>
     )
 };

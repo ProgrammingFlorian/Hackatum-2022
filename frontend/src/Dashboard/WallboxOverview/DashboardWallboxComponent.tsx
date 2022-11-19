@@ -1,18 +1,17 @@
-const DashboardWallboxComponent = () => {
+import SingleWallboxComponent, {SingleWallboxComponentProps} from "./SingleWallboxComponent";
+
+interface DashboardWallboxComponentProps {
+    wallboxes: SingleWallboxComponentProps[];
+}
+
+const DashboardWallboxComponent = (props: DashboardWallboxComponentProps) => {
     return (
-        <div className="row">
-            <div className="col">
-                <p>Wallbox 1</p>
-            </div>
-            <div className="col">
-                <p>Wallbox 2</p>
-            </div>
-            <div className="col">
-                <p>Wallbox 3</p>
-            </div>
-            <div className="col">
-                <p>Wallbox 4</p>
-            </div>
+        <div className="row bg-white align-items-center ">
+            {props.wallboxes.map((wallbox: SingleWallboxComponentProps) => {
+                return (<div className="col">
+                    <SingleWallboxComponent name={wallbox.name}/>
+                </div>);
+            })}
         </div>
     )
 };
