@@ -20,7 +20,7 @@ const SingleWallboxComponent = (props: SingleWallboxComponentProps) => {
     return (
         <div className="container text-white fw-bold pt-4">
             <h3>{props.name}</h3>
-                    <div className="progress " style={{height:"150px", width:"300px", background:"#535353"}}>
+                    <div className="progress" style={{height:"150px", width:"300px", background:"#535353"}}>
                         <div className="progress-bar progress-bar-component" style={{width:percentage + "%", background:color_function(percentage)}}>
                             <div className="container text-start overlay">
                                 <text style={{fontSize:"15px"}}>Charging: 92%</text>

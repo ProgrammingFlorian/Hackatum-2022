@@ -10,6 +10,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
 import DashboardContainer from "./Dashboard/DashboardContainer";
 import PageLayout from "./common/PageLayout";
+import VehicleInfoContainer from "./VehicleInformation/Vehicle-info-container";
 
 const root: Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -24,6 +25,9 @@ root.render(
             <Routes>
                 <Route path="/" element={<PageLayout/>}>
                     <Route index element={<DashboardContainer />}/>
+                </Route>
+                <Route path="/info" element={<VehicleInfoContainer/>}>
+
                 </Route>
             </Routes>
         </BrowserRouter>
