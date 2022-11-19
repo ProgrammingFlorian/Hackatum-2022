@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "model")
 public class Model {
+    public static int DEFAULT_CAPACITY = 80;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

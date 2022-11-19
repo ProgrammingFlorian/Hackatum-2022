@@ -15,7 +15,7 @@ public class VehicleScheduling {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long vs_id;
+    private Long vs_id;
 
     @NotNull
     @Column(name = "vt_id")
@@ -33,6 +33,9 @@ public class VehicleScheduling {
 
     @Column(name = "charging_end")
     private Timestamp chargingEnd;
+
+    @Column(name = "charge_at_checkout")
+    private int chargeAtCheckout;
 
     @Column(name = "battery_level_start")
     private int batteryLevelStart;

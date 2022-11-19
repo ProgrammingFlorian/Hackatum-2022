@@ -15,9 +15,12 @@ import java.sql.Timestamp;
 @Table(name = "vehicle_task")
 public class VehicleTask {
 
+    public static String MOVE_VEHICLE_KEY = "move_vehicle";
+    public static String CLEAN_VEHICLE_KEY = "clean_vehicle";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long vta_id;
+    private Long vta_id;
 
     @NotNull
     @Column(name = "vt_id")
