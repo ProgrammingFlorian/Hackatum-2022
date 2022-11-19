@@ -83,3 +83,8 @@ h2 {
     color: white;
     font-size: large;
 }
+
+.info-component {
+    border-radius: 5px;
+    background-color: #535353;
+}
