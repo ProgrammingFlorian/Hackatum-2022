@@ -1,11 +1,11 @@
-import DashboardComponent from "../Dashboard/DashboardComponent";
+import DashboardComponent from "./DashboardComponent";
 import {useEffect, useState} from "react";
-import {VehicleInfo} from "../Model/VehicleInfo";
-import {Requests} from "../common/requests";
-import {apiVehicleCheckinRoute, apiVehicleInfoRoute} from "../common/apiRoutes";
-import {SuccessDTO} from "../Model/SuccessDTO";
-import {Wallbox} from "../Model/Wallbox";
-import {LoadingComponent} from "../Components/LoadingComponent";
+import {VehicleInfo} from "../../model/VehicleInfo";
+import {Requests} from "../../common/requests";
+import {apiVehicleCheckinRoute, apiVehicleInfoRoute} from "../../common/apiRoutes";
+import {SuccessDTO} from "../../model/SuccessDTO";
+import {Wallbox} from "../../model/Wallbox";
+import {LoadingComponent} from "../LoadingComponent";
 
 const DashboardContainer = () => {
     const urlParams = new URLSearchParams(window.location.search);

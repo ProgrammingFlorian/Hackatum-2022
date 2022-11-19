@@ -1,4 +1,4 @@
-const DashboardInfoComponent = () => {
+const DashboardWelcomeComponent = () => {
     return (
         <div className="px-4 py-5 dashboard-info-component" style={{boxShadow: "0px 1px 8px 0px rgba(0, 0, 0, 0.7)"}}>
             <text className="pt-4 text-white">
@@ -9,4 +9,4 @@ const DashboardInfoComponent = () => {
     )
 };
 
-export default DashboardInfoComponent;
+export default DashboardWelcomeComponent;

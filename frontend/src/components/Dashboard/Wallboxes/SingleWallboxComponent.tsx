@@ -1,6 +1,6 @@
-import {Wallbox} from "../../Model/Wallbox";
+import {Wallbox} from "../../../model/Wallbox";
 import SingleWallboxVehicleComponent from "./SingleWallboxVehicleComponent";
-import {VehicleInfo} from "../../Model/VehicleInfo";
+import {VehicleInfo} from "../../../model/VehicleInfo";
 
 interface SingleWallboxComponentProps {
     name: string;

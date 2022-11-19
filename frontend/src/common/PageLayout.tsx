@@ -1,5 +1,5 @@
 import {Outlet} from "react-router-dom";
-import NavigationBarContainer from "../NavigationBar/NavigationBarContainer";
+import NavigationBarContainer from "../components/NavigationBar/NavigationBarContainer";
 
 /**
  * General page layout where every page is embedded into.

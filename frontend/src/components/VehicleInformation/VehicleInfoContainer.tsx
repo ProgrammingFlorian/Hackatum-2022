@@ -1,4 +1,4 @@
-import VehicleInfoComponent from "./Vehicle-info-component";
+import VehicleInfoComponent from "./VehicleInfoComponent";
 
 
 const VehicleInfoContainer = () => {

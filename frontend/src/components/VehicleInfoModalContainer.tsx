@@ -1,4 +1,4 @@
-import {VehicleInfo} from "../Model/VehicleInfo";
+import {VehicleInfo} from "../model/VehicleInfo";
 import AutoInfoModal from "./VehicleInfoModal";
 
 interface AutoInfoModalContainerProps {

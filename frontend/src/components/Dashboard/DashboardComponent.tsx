@@ -1,7 +1,7 @@
-import DashboardInfoComponent from "./Info/DashboardInfoComponent";
-import DashboardWallboxContainer from "./WallboxOverview/DashboardWallboxContainer";
+import DashboardWelcomeComponent from "./Welcome/DashboardWelcomeComponent";
+import DashboardWallboxContainer from "./Wallboxes/DashboardWallboxContainer";
 import DashboardNotificationContainer from "./Notifications/DashboardNotificationContainer";
-import {Wallbox} from "../Model/Wallbox";
+import {Wallbox} from "../../model/Wallbox";
 
 interface DashboardComponentProps {
     wallboxes: Wallbox[];
@@ -14,7 +14,7 @@ const DashboardComponent = (props: DashboardComponentProps) => {
     return (
         <div className="container-fluid dashboard-component h-100 p-0">
             <div className="container-fluid p-0">
-                <DashboardInfoComponent/>
+                <DashboardWelcomeComponent/>
             </div>
             <div className="row justify-content-center m-0">
                 <div className="container col-md-7">

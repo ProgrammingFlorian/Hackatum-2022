@@ -1,5 +1,5 @@
 import DashboardWallboxComponent from "./DashboardWallboxComponent";
-import {Wallbox} from "../../Model/Wallbox";
+import {Wallbox} from "../../../model/Wallbox";
 
 interface DashboardWallboxContainerProps {
     wallboxes: Wallbox[];

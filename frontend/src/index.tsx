@@ -8,9 +8,9 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
-import DashboardContainer from "./Dashboard/DashboardContainer";
+import DashboardContainer from "./components/Dashboard/DashboardContainer";
 import PageLayout from "./common/PageLayout";
-import VehicleInfoContainer from "./VehicleInformation/Vehicle-info-container";
+import VehicleInfoContainer from "./components/VehicleInformation/VehicleInfoContainer";
 
 const root: Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

@@ -1,6 +1,5 @@
 import SingleWallboxComponent from "./SingleWallboxComponent";
-import {Wallbox} from "../../Model/Wallbox";
-import {VehicleInfo} from "../../Model/VehicleInfo";
+import {Wallbox} from "../../../model/Wallbox";
 
 interface DashboardWallboxComponentProps {
     wallboxes: Wallbox[];

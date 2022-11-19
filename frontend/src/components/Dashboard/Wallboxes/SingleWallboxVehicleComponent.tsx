@@ -1,10 +1,10 @@
-import {VehicleInfo} from "../../Model/VehicleInfo";
+import {VehicleInfo} from "../../../model/VehicleInfo";
 
-interface SingleWallboxVehicleComponent {
+interface SingleWallboxVehicleComponentProps {
     vehicle: VehicleInfo;
 }
 
-const SingleWallboxVehicleComponent = (props: SingleWallboxVehicleComponent) => {
+const SingleWallboxVehicleComponent = (props: SingleWallboxVehicleComponentProps) => {
     const color_function = (percentage: number) => {
         if (percentage < 20) {
             return "rgba(255,41,41,0.77)"
@@ -18,6 +18,7 @@ const SingleWallboxVehicleComponent = (props: SingleWallboxVehicleComponent) => 
             return "#308540"
         }
     }
+
     return (
             <div className="progress position-relative row mb-3"
                  style={{height: "150px", width: "300px", background: "#535353"}}>
