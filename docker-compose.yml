@@ -1,10 +1,15 @@
 version: '3'
 services:
   database:
-    image: 'postgres:latest'
+    image: mysql
+    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+    # (this is just an example, not intended to be a production configuration)
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
     ports:
-      - 5432:5432
+      - 3306:3306
     environment:
-      POSTGRES_USER: database
-      POSTGRES_PASSWORD: GVpucrE7n4uAEjMspDTA
-      POSTGRES_DATABASE: application
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: database
+      MYSQL_PASSWORD: GVpucrE7n4uAEjMspDTA
+      MYSQL_DATABASE: application
