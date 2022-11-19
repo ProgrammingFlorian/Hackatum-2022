@@ -11,13 +11,14 @@ import "./index.css";
 import DashboardContainer from "./components/Dashboard/DashboardContainer";
 import PageLayout from "./common/PageLayout";
 import VehicleInfoContainer from "./components/VehicleInformation/VehicleInfoContainer";
+import VehiclePageContainer from "./VehiclePage/VehiclePageContainer";
+
 
 const root: Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-// add 'bg-black' class to root element for dark background
-document.body.classList.add('bg-black');
+
 
 root.render(
     <React.StrictMode>
@@ -26,9 +27,8 @@ root.render(
                 <Route path="/" element={<PageLayout/>}>
                     <Route index element={<DashboardContainer/>}/>
                 </Route>
-                <Route path="/info" element={<VehicleInfoContainer/>}>
+                <Route path="/vehicles" element={<VehiclePageContainer/>}/>
 
-                </Route>
             </Routes>
         </BrowserRouter>
     </React.StrictMode>

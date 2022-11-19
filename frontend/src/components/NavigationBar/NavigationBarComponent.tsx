@@ -7,7 +7,7 @@ const NavigationBarComponent = (props: NavigationBarProps) => {
     const isVehiclesPage = window.location.href.endsWith('vehicles');
 
     return (
-        <nav className="navbar navbar-expand-lg color-orange">
+        <nav className="navbar navbar-expand-lg sticky-top color-orange">
             <div className="container-fluid">
                 <a className="navbar-brand" href="/Users/Florian/Documents/Hackatum-2022/frontend/public">
                     <img src="images/sixt.png" alt="Logo" height={30} width={72}/>
