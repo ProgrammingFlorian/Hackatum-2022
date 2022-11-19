@@ -37,8 +37,8 @@ GET /vehicle/<id>
     batteryLevel: <batteryLevel>,
     isCharging: <isCharging>,
     hubLocation: <hubLocation>,
-    state: <CHARGING|IDLE|DRIVING|PARKED|UNAVAILABLE>,
-    parkingSpot: <parkingSpot>,
+    currentParkingSpot: <parkingSpot>,
+    desiredParkingSpot: <parkingSpot>
 }
 
 POST /vehicle/check-in?id=<id>
