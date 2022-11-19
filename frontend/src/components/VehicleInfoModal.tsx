@@ -1,7 +1,7 @@
-import { VehicleInfo } from "../Model/VehicleInfo"
+import { VehicleInfoDTO } from "../model/VehicleInfoDTO"
 
 interface VehicleInfoModalProps {
-    vehicleInfo: VehicleInfo;
+    vehicleInfo?: VehicleInfoDTO;
 }
 
 /**

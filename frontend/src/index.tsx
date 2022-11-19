@@ -8,26 +8,27 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
-import DashboardContainer from "./Dashboard/DashboardContainer";
+import DashboardContainer from "./components/Dashboard/DashboardContainer";
 import PageLayout from "./common/PageLayout";
-import AutoInfoModal from "./Components/VehicleInfoModal";
-import VehicleInfoModalContainer from './Components/VehicleInfoModalContainer';
+import VehicleInfoContainer from "./components/VehicleInformation/VehicleInfoContainer";
+import VehiclePageContainer from "./VehiclePage/VehiclePageContainer";
+
 
 const root: Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-// add 'bg-black' class to root element for dark background
-document.body.classList.add('bg-black');
+
 
 root.render(
     <React.StrictMode>
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<PageLayout/>}>
-                    <Route index element={<DashboardContainer />}/>
+                    <Route index element={<DashboardContainer/>}/>
                 </Route>
-                    <Route path="/check-in" element={<VehicleInfoModalContainer vehicleId={0}/>}/>
+                <Route path="/vehicles" element={<VehiclePageContainer/>}/>
+
             </Routes>
         </BrowserRouter>
     </React.StrictMode>
