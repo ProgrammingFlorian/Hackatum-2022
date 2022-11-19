@@ -43,11 +43,4 @@ public class Vehicle {
         this.hubLocation = hubLocation;
         this.batteryLevel = batteryLevel;
     }
-
-    /*
-     * Booking
-     *  - from
-     *  - to: datetime
-     *
-     */
 }
