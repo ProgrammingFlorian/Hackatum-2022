@@ -1,19 +1,16 @@
 package de.hkwh.backend.service;
 
 import de.hkwh.backend.datatransferobjects.VehicleDTO;
-import de.hkwh.backend.datatransferobjects.VehicleTicketDTO;
 import de.hkwh.backend.model.*;
 import de.hkwh.backend.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Random;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -47,29 +44,30 @@ public class VehicleService {
         Vehicle vehicle = vehicles.findByV_id(v_id).orElseThrow();
         return createVehicleDTO(vehicle);
     }
-    /*
-    * x  CheckIn
-    * x  CheckOut
-    * CreateTask
-    * VehicleInformation
-    * CreateVehicle
-    *
-    * */
+
     @Modifying
-    public VehicleTicketDTO checkIn(String licencePlate, long h_id)
+    public VehicleDTO checkIn(String licencePlate, long h_id)
     {
         Vehicle vehicle = vehicles.findByLicensePlate(licencePlate).orElseThrow();
-        //Hub hub = hubs.findByHubName(hubName).orElseThrow();
+        Model model = models.findByM_id(vehicle.getM_id()).orElseThrow();
         Hub hub = hubs.findByH_id(h_id).orElseThrow();
         Parkingspot parkingspot = parkingSpots.findFirstFree().orElseThrow();
 
-        VehicleTicket ticket = new VehicleTicket(vehicle.getV_id(), hub.getH_id(), Timestamp.valueOf(LocalDateTime.now()));
+        VehicleTicket ticket = new VehicleTicket(vehicle.getV_id(), hub.getH_id(), Timestamp.valueOf(LocalDateTime.now()), randomNextCustomer());
 
-        //@Todo ticket.setCheckoutTimestamp();
+        vehicleTickets.updateActive(vehicle.getV_id());
+
+        Random random = new Random();
+        int minuets = random.nextInt(0, 60);
+        int hours = random.nextInt(1,4);
+        LocalDateTime time = LocalDateTime.now();
+        time.plusHours(hours);
+        time.plusMinutes(minuets);
+        ticket.setCheckoutTimestamp(Timestamp.valueOf(time));
 
         ticket = vehicleTickets.save(ticket);
 
-        return VehicleTicketDTO.of(ticket, vehicle);
+        return VehicleDTO.of(vehicle, model, ticket);
     }
 
     @Modifying
@@ -88,6 +86,16 @@ public class VehicleService {
     private VehicleDTO createVehicleDTO(Vehicle vehicle)
     {
         Model model = models.findByM_id(vehicle.getM_id()).orElseThrow();
-        return VehicleDTO.of(vehicle, model);
+        VehicleTicket ticket = vehicleTickets.findByV_id(vehicle.getV_id()).orElse(null);
+        if (ticket == null) {
+            return VehicleDTO.of(vehicle, model);
+        }
+        return VehicleDTO.of(vehicle, model, ticket);
+    }
+
+    private String randomNextCustomer() {
+        Random random = new Random();
+        String[] customerNames = new String[]{"Max Meier", "Sabine Müller", "Franz Schmid", "Josef Bauer" , "Alex Maier"};
+        return customerNames[random.nextInt(0,5)];
     }
 }

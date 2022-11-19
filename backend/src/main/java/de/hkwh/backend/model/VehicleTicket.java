@@ -37,14 +37,27 @@ public class VehicleTicket {
     @Column(name = "checkout_date")
     private Timestamp checkoutTimestamp;
 
+    @Column(name = "next_customer")
+    private String nextCustomer;
     @NotNull
     @Column(name = "isActive")
     private int isActive;
 
-    public VehicleTicket(long v_id, long h_id, Timestamp checkinTimestamp) {
+    public VehicleTicket(long v_id, long h_id, Timestamp checkinTimestamp, String next) {
         this.v_id = v_id;
         this.h_id = h_id;
         this.checkinTimestamp = checkinTimestamp;
         this.isActive = 1;
+        this.nextCustomer = next;
+    }
+
+    public VehicleTicket(long v_id, long h_id, long p_id, Timestamp checkinTimestamp, Timestamp checkoutTimestamp, String nextCustomer, boolean isActive) {
+        this.v_id = v_id;
+        this.h_id = h_id;
+        this.p_id = p_id;
+        this.checkinTimestamp = checkinTimestamp;
+        this.checkoutTimestamp = checkoutTimestamp;
+        this.nextCustomer = nextCustomer;
+        this.isActive = isActive?1:0;
     }
 }
