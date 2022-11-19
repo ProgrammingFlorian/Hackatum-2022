@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import DashboardContainer from "./Dashboard/DashboardContainer";
 import PageLayout from "./common/PageLayout";
+import AutoInfoModal from "./Components/AutoInfoModal";
 
 const root: Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -24,6 +25,7 @@ root.render(
                 <Route path="/" element={<PageLayout/>}>
                     <Route index element={<DashboardContainer />}/>
                 </Route>
+                    <Route path="/checkout" element={<AutoInfoModal />}/>
             </Routes>
         </BrowserRouter>
     </React.StrictMode>
