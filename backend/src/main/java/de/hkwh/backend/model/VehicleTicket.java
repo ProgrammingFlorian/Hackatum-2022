@@ -39,12 +39,12 @@ public class VehicleTicket {
 
     @NotNull
     @Column(name = "isActive")
-    private boolean isActive;
+    private int isActive;
 
     public VehicleTicket(long v_id, long h_id, Timestamp checkinTimestamp) {
         this.v_id = v_id;
         this.h_id = h_id;
         this.checkinTimestamp = checkinTimestamp;
-        this.isActive = true;
+        this.isActive = 1;
     }
 }

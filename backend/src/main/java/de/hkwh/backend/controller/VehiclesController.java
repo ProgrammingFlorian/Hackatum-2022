@@ -1,14 +1,13 @@
 package de.hkwh.backend.controller;
 
+import de.hkwh.backend.datatransferobjects.VehicleDTO;
+import de.hkwh.backend.datatransferobjects.VehicleTicketDTO;
 import de.hkwh.backend.model.Vehicle;
 import de.hkwh.backend.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class VehiclesController {
 
-    // private final VehicleService vehicleService;
+    private final VehicleService vehicleService;
 
     /**
      * GET /vehicle
@@ -26,9 +25,32 @@ public class VehiclesController {
      * @return the list of all Vehicles in the database
      */
     @GetMapping("/vehicles")
-    public ResponseEntity<List<Vehicle>> getVehicles() {
-        return new ResponseEntity<>(VehicleService.getVehicles(), HttpStatus.OK);
+    public ResponseEntity<VehicleDTO[]> getVehicles() {
+        return new ResponseEntity<>(vehicleService.getVehicles(), HttpStatus.OK);
+    }
 
+    @GetMapping("/vehicle/license/{plate}")
+    public ResponseEntity<VehicleDTO> getVehicle(@PathVariable String plate)
+    {
+        return new ResponseEntity<>(vehicleService.getVehicle(plate), HttpStatus.OK);
+    }
+
+    @GetMapping("/vehicle/v_id/{id}")
+    public ResponseEntity<VehicleDTO> getVehicle(@PathVariable long id)
+    {
+        return new ResponseEntity<>(vehicleService.getVehicle(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/vehicle/checkin/{plate}/{hub}")
+    public ResponseEntity<VehicleTicketDTO> checkInVehicle(@PathVariable String plate, @PathVariable long hub)
+    {
+        return new ResponseEntity<>(vehicleService.checkIn(plate, hub), HttpStatus.OK);
+    }
+
+    @PostMapping("/vehicle/checkout/{plate}")
+    public ResponseEntity<VehicleDTO> checkOutVehicle(@PathVariable String plate)
+    {
+        return null;
     }
 }
 

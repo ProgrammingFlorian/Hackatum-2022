@@ -27,4 +27,10 @@ public class Hub {
 
     @Column(name = "manager")
     private String manager;
+
+    public Hub(String hubName, String address, String manager) {
+        this.hubName = hubName;
+        this.address = address;
+        this.manager = manager;
+    }
 }

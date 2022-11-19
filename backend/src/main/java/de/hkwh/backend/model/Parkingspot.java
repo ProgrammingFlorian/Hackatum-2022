@@ -25,15 +25,18 @@ public class Parkingspot {
     private String spotName;
 
     @Column(name = "hasWallbox")
-    private boolean hasWallbox;
+    private int hasWallbox;
+
+    @Column(name = "chargingSpeed")
+    private int chargingSpeed;
 
     @Column(name = "isFree")
-    private boolean isFree;
+    private int isFree;
 
     public Parkingspot(long h_id, String spotName, boolean hasWallbox, boolean isFree) {
         this.h_id = h_id;
         this.spotName = spotName;
-        this.hasWallbox = hasWallbox;
-        this.isFree = isFree;
+        this.hasWallbox = hasWallbox ? 1:0;
+        this.isFree = isFree ? 1:0;
     }
 }
