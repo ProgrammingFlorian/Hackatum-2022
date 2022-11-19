@@ -8,6 +8,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import "./animations.css";
+import DashboardContainer from "./Dashboard/DashboardContainer";
 
 const root: Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -20,7 +21,7 @@ root.render(
     <React.StrictMode>
         <BrowserRouter>
             <Routes>
-                <Route index element={}/>
+                <Route index element={<DashboardContainer />}/>
             </Routes>
         </BrowserRouter>
     </React.StrictMode>
