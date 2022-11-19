@@ -6,6 +6,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 // CSS Files
 // add bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
 import DashboardContainer from "./Dashboard/DashboardContainer";
 import PageLayout from "./common/PageLayout";

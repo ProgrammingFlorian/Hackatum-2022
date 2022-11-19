@@ -4,16 +4,18 @@ import DashboardNotificationContainer from "./Notifications/DashboardNotificatio
 
 const DashboardComponent = () => {
     return (
-        <div className="container-fluid dashboard-component">
-            <div className="container-fluid">
+        <div className="container-fluid dashboard-component h-100 p-0">
+            <div className="container-fluid p-0">
                 <DashboardInfoComponent/>
             </div>
-            <div className="row justify-content-center">
-                <div className="container col-md-8">
+            <div className="row justify-content-center m-0">
+                <div className="container col-md-7">
                     <DashboardWallboxContainer/>
                 </div>
-                <div className="container col-md-4">
-                    <DashboardNotificationContainer/>
+                <div className="col-md-4" style={{borderLeft: "2px solid rgba(0, 0, 0, 0.15)"}}>
+                    <div className="container">
+                        <DashboardNotificationContainer/>
+                    </div>
                 </div>
             </div>
         </div>
