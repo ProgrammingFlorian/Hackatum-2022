@@ -58,11 +58,20 @@ const DashboardContainer = () => {
 
     useEffect(() => {
         if (checkinPlate) {
-            Requests.postRequest<VehicleInfoDTO>(apiVehicleCheckinRoute(checkinPlate), {}).then(vehicle => {
-                loadWallboxes().then(() => {
-                    navigate(dashboardVehicleInfoRoute(vehicle.v_id));
+            setTimeout(() => {
+                Requests.postRequest<VehicleInfoDTO>(apiVehicleCheckinRoute(checkinPlate), {}).then(vehicle => {
+                    loadWallboxes().then(() => {
+                        navigate(dashboardVehicleInfoRoute(vehicle.v_id));
+                    });
                 });
-            });
+            }, 2000);
+        }
+        if (vehicleInfoParam) {
+            let vehicleId = Number(vehicleInfoParam);
+            let vehicle = getVehicleById(vehicleId);
+            if (vehicle) {
+                showVehicleInfo(vehicle);
+            }
         }
         loadWallboxes();
     }, [checkinPlate]);

@@ -3,5 +3,5 @@ export const apiDashboard = (): string => {
 }
 
 export const apiVehicleCheckinRoute = (plate: string): string => {
-       return `/vehicle/checkin/${plate}`;
+       return `/?vehicle=${plate}`;
 }
