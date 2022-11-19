@@ -1,50 +1,34 @@
-
-
-
 interface NavigationBarProps {
-    onLogoClick?: () => void;
-    onDashboardClick?: () => void
-    onVehiclesClick?: () => void
+
 }
 
-
-const NavigationBarComponent = (props: NavigationBarProps)=> {
-    const underline = (name: String) => {
-        if  (window.location.href.endsWith('/') && name == "Dashboard") {
-            return <text className="text-decoration-underline text-white">
-                {name}
-            </text>
-        } else if (window.location.href.endsWith('vehicles') && name == "Vehicles"){
-            return <text className="text-decoration-underline text-white">
-                {name}
-            </text>
-        } else {
-            return <text>
-                {name}
-            </text>
-        }
-    }
+const NavigationBarComponent = (props: NavigationBarProps) => {
+    const isDashboardPage = window.location.href.endsWith('/');
+    const isVehiclesPage = window.location.href.endsWith('vehicles');
 
     return (
-        <nav className="navbar-expand-sm fixed-top mb-5 color-orange navbar-container">
-            <div className="container-fluid row justify-content-start user-select-none h-100">
-                <div className="col-auto">
-                    <a className="navbar-brand" onClick={props.onLogoClick} style={{cursor: "pointer"}}>
-                        <img src="sixt-logo.png" height={45} width={90}/>
-                    </a>
-                </div>
-                <div className="col-auto pt-2 text-white fw-bold dashboard-button" onClick={props.onDashboardClick}>
-                    {underline("Dashboard")}
-                </div>
-                <div className="col-auto pt-2 text-white fw-bold dashboard-button" onClick={props.onVehiclesClick}>
-                    {underline("Vehicles")}
-                </div>
-                <div className="col pt-2 text-white px-0 fw-bold text-end dashboard-button" >
-                    {"Logout"}
+        <nav className="navbar navbar-expand-lg color-orange">
+            <div className="container-fluid">
+                <a className="navbar-brand" href="/">
+                    <img src="sixt-logo.png" alt="Logo" height={30} width={24}/>
+                </a>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <a className={"nav-link " + (isDashboardPage ? 'active' : '')} href="/">Dashboard</a>
+                        <a className={"nav-link " + (isVehiclesPage ? 'active' : '')} href="/vehicles">Vehicles</a>
+                    </div>
+                    <div className="navbar-right">
+                        <a className="nav-link" href="/logout">Logout</a>
+                    </div>
                 </div>
             </div>
         </nav>
     );
+};
 
-}
-export default NavigationBarComponent
+export default NavigationBarComponent;
