@@ -7,7 +7,6 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 // add bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import "./animations.css";
 import DashboardContainer from "./Dashboard/DashboardContainer";
 
 const root: Root = ReactDOM.createRoot(
