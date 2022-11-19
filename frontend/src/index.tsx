@@ -8,6 +8,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import DashboardContainer from "./Dashboard/DashboardContainer";
+import PageLayout from "./common/PageLayout";
 
 const root: Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -20,7 +21,9 @@ root.render(
     <React.StrictMode>
         <BrowserRouter>
             <Routes>
-                <Route index element={<DashboardContainer />}/>
+                <Route path="/" element={<PageLayout/>}>
+                    <Route index element={<DashboardContainer />}/>
+                </Route>
             </Routes>
         </BrowserRouter>
     </React.StrictMode>
