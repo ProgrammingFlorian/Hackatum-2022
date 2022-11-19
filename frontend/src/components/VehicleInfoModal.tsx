@@ -1,3 +1,4 @@
+
 import { VehicleInfo } from "../model/VehicleInfo"
 
 interface VehicleInfoModalProps {

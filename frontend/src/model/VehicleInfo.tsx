@@ -11,4 +11,5 @@ export interface VehicleInfo {
     nextPickUpCustomer: Date;
     upcomingTasks: Task[];
     batteryLevel: number;
+    brand: String;
 }

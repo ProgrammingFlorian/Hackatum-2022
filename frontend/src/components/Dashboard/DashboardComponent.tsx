@@ -25,6 +25,9 @@ const DashboardComponent = (props: DashboardComponentProps) => {
                         <DashboardWallboxContainer wallboxes={props.wallboxes} showVehicleInfo={props.showVehicleInfo}/>
                     </div>
                     <div className="col-md-4" style={{borderLeft: "2px solid rgba(0, 0, 0, 0.15)"}}>
+                        <h3 className="text-white fw-bold pt-4">
+                           Notifications:
+                        </h3>
                         <div className="container">
                             <DashboardNotificationContainer/>
                         </div>
@@ -32,11 +35,13 @@ const DashboardComponent = (props: DashboardComponentProps) => {
                 </div>
             </div>
             {props.vehicleInfo !== null ?
-                <div className="position-absolute top-0 start-0 w-100 h-100 bg-opacity-95 bg-dark"
+
+                <div className=" position-absolute top-0 start-0 w-100 h-auto bg-opacity-95 bg-dark"
                      style={{zIndex: "20"}}>
-                    <div className="d-flex justify-content-center align-items-center h-100 pt-3">
-                        <div className="mt-5">
-                            <VehicleInfoContainer/>
+                    <br/> <br/> <br/> <br/> <br/>
+                    <div className="d-flex justify-content-center align-items-center pb-5">
+                        <div className="">
+                            <VehicleInfoContainer hideVehicleInfo={props.hideVehicleInfo}/>
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
+    background-color: #333333 !important;
     user-select: none;
 }
 
@@ -47,6 +47,8 @@ code {
     padding-top: 45px;
     background-color: #333333;
 }
+
+
 
 .dashboard-info-component {
     font-family: "Helvetica Neue";

@@ -26,7 +26,8 @@ const DashboardContainer = () => {
                         nextPickUpCustomer: new Date(),
                         upcomingTasks: [],
                         nextPickUpTime: new Date(),
-                        batteryLevel: 20
+                        batteryLevel: 20,
+                        brand: "Audi"
                     },
                     {
                         vehicleId: 4,
@@ -35,7 +36,8 @@ const DashboardContainer = () => {
                         nextPickUpCustomer: new Date(),
                         upcomingTasks: [],
                         nextPickUpTime: new Date(),
-                        batteryLevel: 50
+                        batteryLevel: 50,
+                        brand: "Audi"
                     }
                 ]
             },
@@ -48,7 +50,8 @@ const DashboardContainer = () => {
                         nextPickUpCustomer: new Date(),
                         upcomingTasks: [],
                         nextPickUpTime: new Date(),
-                        batteryLevel: 20
+                        batteryLevel: 20,
+                        brand: "Audi"
                     }
                 ]
             }
@@ -63,6 +66,7 @@ const DashboardContainer = () => {
     }
 
     const hideVehicleInfo = () => {
+
         setVehicleInfo(null);
     }
 
