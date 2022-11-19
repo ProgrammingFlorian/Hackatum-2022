@@ -2,7 +2,7 @@ import DashboardComponent from "./DashboardComponent";
 import {useEffect, useState} from "react";
 import {VehicleInfoDTO} from "../../model/VehicleInfoDTO";
 import {Requests} from "../../common/requests";
-import {apiDashboard, apiVehicleCheckinRoute, apiVehicleInfoRoute} from "../../common/apiRoutes";
+import {apiDashboard, apiVehicleCheckinRoute} from "../../common/apiRoutes";
 import {SuccessDTO} from "../../model/SuccessDTO";
 import {WallboxDTO} from "../../model/WallboxDTO";
 import {LoadingComponent} from "../LoadingComponent";
@@ -32,7 +32,7 @@ const DashboardContainer = () => {
             setVehicleInfo(vehicle)
         });*/
         setVehicleInfo(vehicleInfo);
-        setVehicleInfoTasks(tasks.filter(task => task.vehicle === vehicleInfo.vehicleId));
+        setVehicleInfoTasks(tasks.filter(task => task.v_id === vehicleInfo.v_id));
     }
 
     const hideVehicleInfo = () => {
@@ -42,8 +42,8 @@ const DashboardContainer = () => {
     const getVehicleById = (vehicleId: number): (VehicleInfoDTO | null) => {
         if (wallboxes) {
             for (const wallbox of wallboxes) {
-                for (const vehicleSchedule of wallbox.vehicles) {
-                    if (vehicleSchedule.vehicle.vehicleId === vehicleId) {
+                for (const vehicleSchedule of wallbox.vehicles_scheduled) {
+                    if (vehicleSchedule.vehicle.v_id === vehicleId) {
                         return vehicleSchedule.vehicle;
                     }
                 }

@@ -14,7 +14,7 @@ const SingleWallboxComponent = (props: SingleWallboxComponentProps) => {
     return (
         <div className="container text-white fw-bold pt-4 w-100">
             <h3>{props.name}</h3>
-            {props.wallbox.vehicles.map((vehicleSchedule: VehicleScheduleDTO) => {
+            {props.wallbox.vehicles_scheduled.map((vehicleSchedule: VehicleScheduleDTO) => {
                 return (
                     <SingleWallboxVehicleComponent vehicle={vehicleSchedule.vehicle} showVehicleInfo={props.showVehicleInfo}/>
                 )
