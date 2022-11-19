@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface VehicleTicketRepository extends CrudRepository <VehicleTicket, Long>{
@@ -22,9 +23,8 @@ public interface VehicleTicketRepository extends CrudRepository <VehicleTicket, 
     Optional<VehicleTicket> findByVt_id(@Param("vt_id")long vt_id);
 
     @Query(
-            value = "UPDATE vehicle_ticket Set is_active = 0 Where v_id = :v_id",
+            value = "Select * from vehicle_ticket Where v_id = :v_id",
             nativeQuery = true
     )
-    void updateActive(@Param("v_id") long v_id);
-
+    Optional<List<VehicleTicket>> getAllTicketsByV_id(@Param("v_id") long v_id);
 }

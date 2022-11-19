@@ -73,7 +73,7 @@ public class RessourceService {
 
         VehicleTicket ticket = new VehicleTicket(vehicle.getV_id(), hub.getH_id(), Timestamp.valueOf(LocalDateTime.now()), randomNextCustomer());
 
-        vehicleTickets.updateActive(vehicle.getV_id());
+        updateActive(vehicle.getV_id());
 
         Random random = new Random();
         int minuets = random.nextInt(0, 60);
@@ -138,6 +138,15 @@ public class RessourceService {
     private VehicleSchedulingDTO createMockVehicleSchedulingDTO(Vehicle vehicle) {
         Random random = new Random();
         return VehicleSchedulingDTO.of(createVehicleDTO(vehicle), random.nextInt(0, 5));
+    }
+
+    @Modifying
+    private void updateActive(long v_id) {
+        List<VehicleTicket> ticketList = vehicleTickets.getAllTicketsByV_id(v_id).orElse(null);
+        if (ticketList == null) {
+            ticketList.stream().forEach(e -> e.setIsActive(0));
+            vehicleTickets.saveAll(ticketList);
+        }
     }
 
     private String randomNextCustomer() {
