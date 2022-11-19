@@ -5,18 +5,18 @@ export interface SingleWallboxComponentProps {
 const SingleWallboxComponent = (props: SingleWallboxComponentProps) => {
     const color_function = (percentage: number) => {
         if (percentage < 21) {
-            return "red"
-        } else if (percentage < 40) {
-            return "orange"
-        } else if (percentage < 60) {
-            return "#C09518C5"
-        } else if (percentage < 80) {
+            return "rgba(255,41,41,0.77)"
+        } else if (percentage < 41) {
+            return "rgba(255,87,16,0.77)"
+        } else if (percentage < 61) {
+            return "rgba(227,176,27,0.77)"
+        } else if (percentage < 81) {
             return "#4DC167"
         } else {
-            return "green"
+            return "#308540"
         }
     }
-    const percentage = 40;
+    const percentage = 90;
     return (
         <div className="container text-white fw-bold pt-4">
             <h3>{props.name}</h3>
