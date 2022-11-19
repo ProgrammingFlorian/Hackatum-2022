@@ -26,8 +26,8 @@ public class Vehicle {
     @Column(name = "license_plate")
     private String licensePlate;
 
-    @Column(name = "location")
-    private String location;
+    @Column(name = "hub_location")
+    private String hubLocation;
 
     @Column(name = "battery_level")
     private int batteryLevel;
@@ -37,10 +37,17 @@ public class Vehicle {
         this.licensePlate = licensePlate;
     }
 
-    public Vehicle(long m_id, String licensePlate, String location, int batteryLevel) {
+    public Vehicle(long m_id, String licensePlate, String hubLocation, int batteryLevel) {
         this.m_id = m_id;
         this.licensePlate = licensePlate;
-        this.location = location;
+        this.hubLocation = hubLocation;
         this.batteryLevel = batteryLevel;
     }
+
+    /*
+     * Booking
+     *  - from
+     *  - to: datetime
+     *
+     */
 }
