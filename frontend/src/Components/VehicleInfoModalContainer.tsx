@@ -17,9 +17,32 @@ const VehicleInfoModalContainer = (props: AutoInfoModalContainerProps) => {
         })
     });
 
-    return vehicleInfo ? (
-        <AutoInfoModal vehicleInfo={vehicleInfo} />
-    ) : <></>;
+    // return vehicleInfo ? (
+    //     <AutoInfoModal vehicleInfo={vehicleInfo} />
+    // ) : <></>;
+    return <AutoInfoModal vehicleInfo={{
+        vehicleId: 0,
+        licensePlate: "M-TU-1256",
+        color: "yellow",
+        nextPickUpTime: new Date("2021-05-01T12:00:00"),
+        nextPickUpCustomer: new Date("2021-05-01T12:00:00"),
+        upcomingTasks: [
+            {
+                notificationId: 0,
+                vehicleId: 0,
+                type: "clean",
+                currentParkingSpot: 0,
+                nextParkingSpot: null,
+            },
+            {
+                notificationId: 0,
+                vehicleId: 0,
+                type: "move",
+                currentParkingSpot: 0,
+                nextParkingSpot: 1,
+            }
+        ]
+    }} />
 
 };
 
