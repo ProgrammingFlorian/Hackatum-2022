@@ -66,14 +66,16 @@ const DashboardContainer = () => {
                 });
             }, 2000);
         }
-        if (vehicleInfoParam) {
-            let vehicleId = Number(vehicleInfoParam);
-            let vehicle = getVehicleById(vehicleId);
-            if (vehicle) {
-                showVehicleInfo(vehicle);
+        loadWallboxes().then(() => {
+            if (vehicleInfoParam) {
+                let vehicleId = Number(vehicleInfoParam);
+                let vehicle = getVehicleById(vehicleId);
+                console.log("wallboxes", wallboxes);
+                if (vehicle) {
+                    showVehicleInfo(vehicle);
+                }
             }
-        }
-        loadWallboxes();
+        });
     }, [checkinPlate]);
 
     if (wallboxes === null) {
