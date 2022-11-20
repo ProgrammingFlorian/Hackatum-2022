@@ -70,7 +70,6 @@ const DashboardContainer = () => {
             if (vehicleInfoParam) {
                 let vehicleId = Number(vehicleInfoParam);
                 let vehicle = getVehicleById(vehicleId);
-                console.log("wallboxes", wallboxes);
                 if (vehicle) {
                     showVehicleInfo(vehicle);
                 }
@@ -80,7 +79,7 @@ const DashboardContainer = () => {
 
     if (wallboxes === null) {
         return LoadingComponent({
-            message: "Lade..."
+            message: "Loading..."
         });
     } else if (checkinPlate !== null) {
         return LoadingComponent({

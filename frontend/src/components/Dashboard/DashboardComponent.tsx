@@ -1,6 +1,6 @@
 import DashboardWelcomeComponent from "./Welcome/DashboardWelcomeComponent";
 import DashboardWallboxContainer from "./Wallboxes/DashboardWallboxContainer";
-import DashboardTaskContainer from "./Notifications/DashboardTaskContainer";
+import DashboardTaskContainer from "./Tasks/DashboardTaskContainer";
 import {WallboxDTO} from "../../model/WallboxDTO";
 import {VehicleInfoDTO} from "../../model/VehicleInfoDTO";
 import VehicleInfoContainer from "../VehicleInformation/VehicleInfoContainer";
@@ -23,7 +23,7 @@ const DashboardComponent = (props: DashboardComponentProps) => {
                 <div className="container-fluid p-0">
                     <DashboardWelcomeComponent/>
                 </div>
-                <div className="row justify-content-evenly">
+                <div className="row justify-content-evenly m-0">
                     <div className="container col-md-8  justify-content-center">
                         <DashboardWallboxContainer wallboxes={props.wallboxes} showVehicleInfo={props.showVehicleInfo}/>
                     </div>
@@ -39,8 +39,8 @@ const DashboardComponent = (props: DashboardComponentProps) => {
             </div>
             {props.vehicleInfo !== null ?
 
-                <div className=" position-absolute top-0 start-0 w-100 h-auto bg-opacity-95 bg-dark"
-                     style={{zIndex: "20"}}>
+                <div className=" position-absolute top-0 start-0 w-100 bg-opacity-95 bg-dark"
+                     style={{zIndex: "20", height: "10000px"}}>
                     <br/> <br/> <br/> <br/> <br/>
                     <div className="d-flex justify-content-center align-items-center pb-5">
                         <div className="">

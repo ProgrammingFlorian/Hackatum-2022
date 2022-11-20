@@ -1,12 +1,23 @@
 import {TaskDTO} from "../../../model/TaskDTO";
 
-export interface SingleNotificationComponentProps {
+export interface SingleTaskComponentProps {
     task: TaskDTO;
 }
 
-const SingleNotificationComponent = (props: SingleNotificationComponentProps) => {
+const SingleTaskComponent = (props: SingleTaskComponentProps) => {
+    console.log(props.task.dateTime);
+
+    const timeTillNotification = new Date(Date.now() - new Date(props.task.dateTime).getTime());
+    let timeString;
+
+    if(timeTillNotification.getHours() > 0) {
+        timeString = `${timeTillNotification.getHours()}h ${timeTillNotification.getMinutes()}m`;
+    } else {
+        timeString = `${timeTillNotification.getMinutes()}m`;
+    }
+
     return (
-        <div className="container container-fluid notification-component text-white w-100">
+        <div className="container container-fluid notification-component text-white w-100" style={{boxShadow: "rgb(0 0 0 / 19%) 0px 1px 5px 0px"}}>
             <div className="row justify-content-between pt-1">
                 <div className="col-auto py-0">
                     <h3 className="p-0 m-0 fw-bold">{props.task.licensePlate}</h3>
@@ -20,7 +31,7 @@ const SingleNotificationComponent = (props: SingleNotificationComponentProps) =>
                                 d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
                             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
                         </svg>
-                        &nbsp;12m
+                        &nbsp;{timeString}
                     </text>
                 </div>
             </div>
@@ -53,4 +64,4 @@ const SingleNotificationComponent = (props: SingleNotificationComponentProps) =>
     );
 };
 
-export default SingleNotificationComponent;
+export default SingleTaskComponent;

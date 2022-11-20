@@ -7,7 +7,7 @@ import axios, {AxiosResponse} from "axios";
  * Interceptor will be attached or error thrown when not logged in.
  */
 const http = axios.create({
-    baseURL: 'http://localhost:8080/api',
+    baseURL: `http://${window.location.hostname}:8080/api`,
     headers: {
         'Content-type': 'application/json',
     }
