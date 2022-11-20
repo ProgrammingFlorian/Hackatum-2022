@@ -5,15 +5,19 @@ export interface SingleTaskComponentProps {
 }
 
 const SingleTaskComponent = (props: SingleTaskComponentProps) => {
-    console.log(props.task.dateTime);
-
-    const timeTillNotification = new Date(Date.now() - new Date(props.task.dateTime).getTime());
+    let difference = new Date(props.task.dateTime).getTime() - Date.now();
+    const timeTillNotification = new Date(difference);
+    console.log("time till:" + timeTillNotification + " now: " + Date.now() + " date: " + new Date(props.task.dateTime).getTime());
     let timeString;
 
     if (timeTillNotification.getHours() - 1 > 0) {
         timeString = `${timeTillNotification.getHours() - 1}h ${timeTillNotification.getMinutes()}m`;
     } else {
-        timeString = `${timeTillNotification.getMinutes()}m`;
+        if (difference < 0) {
+            timeString = "Now";
+        } else {
+            timeString = `${timeTillNotification.getMinutes()}m`;
+        }
     }
 
     return (
