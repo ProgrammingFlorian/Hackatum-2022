@@ -16,6 +16,17 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MockService {
 
+    /**
+     * Demo Szenario:
+     * Cars:
+     *  - BMW i4 -> being returned and will be picked up later -> live perform checkin
+     *      -> will be among the first three
+     *  - (potentially another one)
+     * Parking Spaces:
+     *  - many (15?) normal parking spaces
+     *  - 3 with energy (-> wallboxes)
+     */
+
     private final HubRepository hubs;
     private final ParkingSpotRepository parkingSpots;
     private final ModelRepository models;
