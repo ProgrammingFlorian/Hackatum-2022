@@ -23,7 +23,8 @@ public class SchedulingController {
     @GetMapping("/dashboard")
     public ResponseEntity<DashboardDTO> getDashboard() {
         TaskDTO[] tasks = scheduler.getTasks();
-        WallboxDTO[] wallboxes = ressourceService.getWallboxes();DashboardDTO.of(wallboxes, tasks);
+        //WallboxDTO[] wallboxes = ressourceService.getWallboxes();
+        WallboxDTO[] wallboxes = scheduler.getWallBoxes();
         return new ResponseEntity<>(DashboardDTO.of(wallboxes, tasks), HttpStatus.OK);
     }
 

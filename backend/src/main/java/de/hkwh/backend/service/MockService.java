@@ -136,8 +136,8 @@ public class MockService {
     private VehicleTask[] setupTasks(VehicleTicket[] tickets, Parkingspot[] spots) {
         VehicleTask ta1 = new VehicleTask(tickets[0].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now()), tickets[0].getP_id(), spots[4].getP_id(), false);
         VehicleTask ta2 = new VehicleTask(tickets[1].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusHours(1)), tickets[1].getP_id(), spots[2].getP_id(), false);
-        VehicleTask ta3 = new VehicleTask(tickets[2].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusHours(1)), tickets[2].getP_id(), spots[1].getP_id(), false);
-        VehicleTask ta4 = new VehicleTask(tickets[3].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now()), tickets[3].getP_id(), spots[0].getP_id(), false);
+        VehicleTask ta3 = new VehicleTask(tickets[2].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusMinutes(30)), tickets[2].getP_id(), spots[1].getP_id(), false);
+        VehicleTask ta4 = new VehicleTask(tickets[3].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusMinutes(10)), tickets[3].getP_id(), spots[0].getP_id(), false);
 
         ta1 = vehicleTasks.save(ta1);
         ta2 = vehicleTasks.save(ta2);
