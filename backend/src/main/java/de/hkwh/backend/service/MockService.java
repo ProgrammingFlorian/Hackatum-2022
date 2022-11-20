@@ -23,6 +23,7 @@ public class MockService {
     private final VehicleTicketRepository vehicleTickets;
     private final VehicleTaskRepository vehicleTasks;
     private final VehicleSchedulingRepository vehicleScheduling;
+    private final SchedulingService schedulingService;
 
     @PostConstruct
     public void setup() {
@@ -33,6 +34,7 @@ public class MockService {
         Parkingspot[] parkingSpotArray = setupParkingSpots(hub);
         VehicleTicket[] ticketArray = setupTickets(vehicleArray, hub, parkingSpotArray);
         VehicleTask[] taskArray = setupTasks(ticketArray, parkingSpotArray);
+        schedulingService.scheduleVehicleTickets();
     }
 
     private void clearDatabases() {

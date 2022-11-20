@@ -27,4 +27,10 @@ public interface VehicleTicketRepository extends CrudRepository <VehicleTicket, 
             nativeQuery = true
     )
     Optional<List<VehicleTicket>> getAllTicketsByV_id(@Param("v_id") long v_id);
+
+    @Query(
+            value = "Select * from vehicle_ticket Where is_active >= 1",
+            nativeQuery = true
+    )
+    Optional<List<VehicleTicket>> getAllValidTickets();
 }

@@ -2,6 +2,7 @@ package de.hkwh.backend.controller;
 
 import de.hkwh.backend.datatransferobjects.VehicleDTO;
 import de.hkwh.backend.service.RessourceService;
+import de.hkwh.backend.service.SchedulingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class VehiclesController {
 
     private final RessourceService ressourceService;
+    private final SchedulingService scheduler;
 
     /**
      * GET /vehicle
@@ -40,6 +42,7 @@ public class VehiclesController {
     @PostMapping("/vehicle/checkin/{plate}")
     public ResponseEntity<VehicleDTO> checkInVehicle(@PathVariable String plate)
     {
+        scheduler.scheduleVehicleTickets();
         return new ResponseEntity<>(ressourceService.checkIn(plate), HttpStatus.OK);
     }
 

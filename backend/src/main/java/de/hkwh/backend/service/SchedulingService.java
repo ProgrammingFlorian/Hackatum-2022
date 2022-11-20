@@ -35,22 +35,19 @@ public class SchedulingService {
      * (Overwriting all old data)
      */
     public void scheduleVehicleTickets() {
-        List<VehicleTicket> vehicleTickets = new ArrayList<>();
+        vehicleScheduling.deleteAll();
         List<Parkingspot> parkingSpots = new ArrayList<>();
-        List<Model> models = new ArrayList<>();
-        this.vehicleTickets.findAll().forEach(vehicleTickets::add);
+        List<VehicleTicket> validVehicleTickets = new ArrayList<>(this.vehicleTickets.getAllValidTickets().orElseThrow());
         this.parkingSpots.findAll().forEach(parkingSpots::add);
-        this.models.findAll().forEach(models::add);
         List<List<Object>> chargingSpotsFreeAt = initChargeSpotsFreeAtFromParkingSpots(parkingSpots);
-        for (int i = 0; i < vehicleTickets.size(); i++) {
-            VehicleScheduling nextScheduling = scheduleNext(vehicleTickets, chargingSpotsFreeAt, i);
+        for (int i = 0; i < validVehicleTickets.size(); i++) {
+            VehicleScheduling nextScheduling = scheduleNext(validVehicleTickets, chargingSpotsFreeAt, i);
             this.vehicleScheduling.save(nextScheduling);
-            VehicleTask moveToChargerTask = createMoveToChargerTask(nextScheduling, vehicleTickets);
-            VehicleTask moveFromChargerTask = createMoveFromChargerTask(nextScheduling, vehicleTickets);
+            VehicleTask moveToChargerTask = createMoveToChargerTask(nextScheduling, validVehicleTickets);
+            VehicleTask moveFromChargerTask = createMoveFromChargerTask(nextScheduling, validVehicleTickets);
             this.vehicleTasks.save(moveToChargerTask);
             this.vehicleTasks.save(moveFromChargerTask);
         }
-        vehicleScheduling.deleteAll();
         this.cleanAllCars();
     }
 
@@ -127,6 +124,7 @@ public class SchedulingService {
     }
 
     private void cleanAllCars() {
+        // todo: implement
     }
 
     private VehicleTask createMoveFromChargerTask(VehicleScheduling nextScheduling, List<VehicleTicket> vehicleTickets) {
