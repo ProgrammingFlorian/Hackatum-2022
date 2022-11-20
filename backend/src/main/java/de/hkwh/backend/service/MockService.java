@@ -73,15 +73,15 @@ public class MockService {
     }
 
     private Vehicle[] setupVehicles(Model[] models) {
-        Vehicle eqa1 = new Vehicle(models[0].getM_id(), "M SX 0001", 20, "red");
-        Vehicle eqa2 = new Vehicle(models[0].getM_id(), "M SX 0002", 60, "white");
-        Vehicle eTron1 = new Vehicle(models[1].getM_id(), "M SX 0003", 40, "blue");
-        Vehicle eTron2 = new Vehicle(models[1].getM_id(), "M SX 0004", 25, "black");
-        Vehicle eTron3 = new Vehicle(models[2].getM_id(), "M SX 0005", 5, "green"); // unticketed -> should have high priority
-        Vehicle i4_1 = new Vehicle(models[2].getM_id(), "M SX 0006", 30, "green");
-        Vehicle i4_2 = new Vehicle(models[2].getM_id(), "M SX 0007", 25, "yellow");
-        Vehicle i4_3 = new Vehicle(models[2].getM_id(), "M SX 0008", 35, "red");
-        Vehicle i4_4 = new Vehicle(models[2].getM_id(), "M SX 0009", 5, "blue"); // unticketed -> should have high priority
+        Vehicle eqa1 = new Vehicle(models[0].getM_id(), "M-SX-0001", 20, "red");
+        Vehicle eqa2 = new Vehicle(models[0].getM_id(), "M-SX-0002", 60, "white");
+        Vehicle eTron1 = new Vehicle(models[1].getM_id(), "M-SX-0003", 40, "blue");
+        Vehicle eTron2 = new Vehicle(models[1].getM_id(), "M-SX-0004", 25, "black");
+        Vehicle eTron3 = new Vehicle(models[2].getM_id(), "M-SX-0005", 5, "green"); // unticketed -> should have high priority
+        Vehicle i4_1 = new Vehicle(models[2].getM_id(), "M-SX-0006", 30, "green");
+        Vehicle i4_2 = new Vehicle(models[2].getM_id(), "M-SX-0007", 25, "yellow");
+        Vehicle i4_3 = new Vehicle(models[2].getM_id(), "M-SX-0008", 35, "red");
+        Vehicle i4_4 = new Vehicle(models[2].getM_id(), "M-SX-0009", 5, "blue"); // unticketed -> should have high priority
 
         eqa1 = vehicles.save(eqa1);
         eqa2 = vehicles.save(eqa2);
@@ -124,7 +124,7 @@ public class MockService {
         Timestamp checkoutTime = Timestamp.valueOf(LocalDateTime.now().plusMinutes(60));
         for (int i = 0; i < vehicles.length - 2; i++) { // last two won't have tickets
             long randomTimeDelta = new Random().nextInt(1000 * 60 * 10);
-            Timestamp nextCheckinTime = new Timestamp(checkinTime.getTime() + randomTimeDelta);
+            Timestamp nextCheckinTime = new Timestamp(checkinTime.getTime() + (i * 2 * 1000 * 60));
             Timestamp nextCheckoutTime = new Timestamp(checkoutTime.getTime() + randomTimeDelta);
             VehicleTicket ticket = new VehicleTicket(vehicles[i].getV_id(), hub.getH_id(), spots[i].getP_id(), nextCheckinTime, nextCheckoutTime, randomNextCustomer(), true);
             vehicleTickets.save(ticket);

@@ -66,13 +66,16 @@ public class SchedulingService {
         List<VehicleTicket> validVehicleTickets = new ArrayList<>(this.vehicleTickets.getAllValidTickets().orElseThrow());
         this.parkingSpots.findAll().forEach(parkingSpots::add);
         List<List<Object>> chargingSpotsFreeAt = initChargeSpotsFreeAtFromParkingSpots(parkingSpots);
-        for (int i = 0; i < validVehicleTickets.size(); i++) {
+        int numberRounds = validVehicleTickets.size();
+        for (int i = 0; i < numberRounds; i++) {
             VehicleScheduling nextScheduling = scheduleNext(validVehicleTickets, chargingSpotsFreeAt, i);
             this.vehicleScheduling.save(nextScheduling);
             VehicleTask moveToChargerTask = createMoveToChargerTask(nextScheduling, validVehicleTickets);
             VehicleTask moveFromChargerTask = createMoveFromChargerTask(nextScheduling, validVehicleTickets);
             this.vehicleTasks.save(moveToChargerTask);
             this.vehicleTasks.save(moveFromChargerTask);
+            VehicleTicket scheduledTicket = validVehicleTickets.stream().filter(vehicleTicket -> vehicleTicket.getVt_id() == nextScheduling.getVt_id()).findFirst().get();
+            validVehicleTickets.remove(scheduledTicket);
         }
         this.cleanAllCars();
     }
@@ -246,13 +249,13 @@ public class SchedulingService {
     {
         VehicleTicket vehicleTicket = vehicleTickets.findByVt_id(vehicleScheduling.getVt_id()).orElseThrow();
         Vehicle vehicle = vehicles.findByV_id(vehicleTicket.getV_id()).orElseThrow();
-        return VehicleSchedulingDTO.of(createVehicleDTO(vehicle, vehicleTicket), vehicleScheduling.getQueuePosition());
+        return VehicleSchedulingDTO.of(createVehicleDTO(vehicle, vehicleTicket, vehicleScheduling), vehicleScheduling.getQueuePosition());
     }
 
-    private VehicleDTO createVehicleDTO(Vehicle vehicle, VehicleTicket ticket)
+    private VehicleDTO createVehicleDTO(Vehicle vehicle, VehicleTicket ticket, VehicleScheduling vehicleScheduling)
     {
         Model model = models.findByM_id(vehicle.getM_id()).orElseThrow();
-        return VehicleDTO.of(vehicle, model, ticket);
+        return VehicleDTO.of(vehicle, model, ticket, vehicleScheduling);
     }
 
     private WallboxDTO createWallboxDTO(Parkingspot spot, VehicleSchedulingDTO[] schedulingVehicles)
