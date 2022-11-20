@@ -1,4 +1,5 @@
 import {VehicleInfoDTO} from "../../../model/VehicleInfoDTO";
+import {useEffect, useState} from "react";
 
 interface SingleWallboxVehicleComponentProps {
     vehicle: VehicleInfoDTO;
@@ -7,6 +8,10 @@ interface SingleWallboxVehicleComponentProps {
 }
 
 const SingleWallboxVehicleComponent = (props: SingleWallboxVehicleComponentProps) => {
+    const [currentBatteryLevel, setCurrentBatteryLevel] = useState<number>(props.vehicle.batteryLevel);
+    const [remainingTimeText, setRemainingTimeText] = useState<string>("");
+    const [isCharging, setCharging] = useState<boolean>(false);
+
     const getBatteryLevelColorCode = (percentage: number): string => {
         if (percentage < 20) {
             return "rgba(255,41,41,0.77)"
@@ -25,44 +30,62 @@ const SingleWallboxVehicleComponent = (props: SingleWallboxVehicleComponentProps
         props.showVehicleInfo(props.vehicle);
     };
 
-    let remainingTimeText;
-    let batteryLevel = props.vehicle.batteryLevel;
+    const calculateBattery = () => {
+        let text;
 
-    const chargingStartDate = new Date(props.vehicle.chargingStart).getTime();
-    const now = Date.now();
-    let isCharging = chargingStartDate - now < 0;
-    if (isCharging) {
-        const chargingEndDate = new Date(props.vehicle.chargingEnd).getTime();
-        const remainingTime = new Date(chargingEndDate - now);
-        const chargingDuration = new Date(chargingEndDate - chargingStartDate);
-        if (remainingTime.getHours() > 0) {
-            remainingTimeText = `${remainingTime.getHours()}h ${remainingTime.getMinutes()}m remaining`
+        let batteryLevel = props.vehicle.batteryLevel;
+        const chargingStartDate = new Date(props.vehicle.chargingStart).getTime();
+        const now = Date.now();
+        let charging = chargingStartDate - now < 0;
+        if (charging) {
+            const chargingEndDate = new Date(props.vehicle.chargingEnd).getTime();
+            const remainingTime = new Date(chargingEndDate - now);
+            const chargingDuration = new Date(chargingEndDate - chargingStartDate);
+            if (remainingTime.getHours() > 0) {
+                text = `${remainingTime.getHours()}h ${remainingTime.getMinutes()}m remaining`
+            } else {
+                text = `${remainingTime.getMinutes()}m remaining`
+            }
+            const charged = (100 - batteryLevel) - ((remainingTime.getTime() / chargingDuration.getTime()) * (100 - batteryLevel));
+            batteryLevel += charged;
         } else {
-            remainingTimeText = `${remainingTime.getMinutes()}m remaining`
+            const remainingTime = new Date(chargingStartDate - now);
+            if (remainingTime.getHours() > 0) {
+                text = `In ${remainingTime.getHours()}h ${remainingTime.getMinutes()}m`
+            } else {
+                text = `In ${remainingTime.getMinutes()}m`
+            }
         }
-        const charged = (remainingTime.getTime() / chargingDuration.getTime()) * (100 - batteryLevel);
-        batteryLevel += charged;
-    } else {
-        const remainingTime = new Date(chargingStartDate - now);
-        if (remainingTime.getHours() > 0) {
-            remainingTimeText = `In ${remainingTime.getHours()}h ${remainingTime.getMinutes()}m`
-        } else {
-            remainingTimeText = `In ${remainingTime.getMinutes()}m`
-        }
+        setCurrentBatteryLevel(batteryLevel);
+        setRemainingTimeText(text);
+        setCharging(charging);
     }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            calculateBattery();
+        }, 100);
+    }, []);
 
     return (
         <div className="progress position-relative row mb-3"
-             style={{height: "150px", width: "300px", background: "#535353", cursor: "pointer", userSelect: "none", boxShadow: "rgb(0 0 0 / 19%) 0px 1px 5px 0px"}}
+             style={{
+                 height: "150px",
+                 width: "300px",
+                 background: "#535353",
+                 cursor: "pointer",
+                 userSelect: "none",
+                 boxShadow: "rgb(0 0 0 / 19%) 0px 1px 5px 0px"
+             }}
              onClick={showVehicleInfo}>
             <div className="progress-bar progress-bar-component"
                  style={{
-                     width: (batteryLevel) + "%",
-                     background: getBatteryLevelColorCode(batteryLevel)
+                     width: (currentBatteryLevel) + "%",
+                     background: getBatteryLevelColorCode(currentBatteryLevel)
                  }}>
             </div>
             <div className="container text-start overlay pt-2">
-                <text style={{fontSize: "15px"}}>Charging: {Math.round(batteryLevel)}%</text>
+                <text style={{fontSize: "15px"}}>{isCharging ? "Charging" : "Battery Level"}: {Math.round(currentBatteryLevel)}%</text>
                 <h3 className="p-0 m-0 fw-bold pt-2">{props.vehicle.licensePlate}</h3>
                 <text style={{fontSize: "15px"}}>{props.vehicle.brand}: {props.vehicle.model}</text>
                 <br/>
