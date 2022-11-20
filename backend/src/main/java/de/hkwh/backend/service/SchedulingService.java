@@ -164,7 +164,7 @@ public class SchedulingService {
         String taskName = VehicleTask.MOVE_VEHICLE_KEY;
         Timestamp dateTime = nextScheduling.getChargingEnd();
         long currentParkingSpotId = nextScheduling.getP_id();
-        long targetParkingSpotId = vehicleTickets.stream().filter(vehicleTicket -> vehicleTicket.getVt_id() == vehicleTicketId).findFirst().get().getP_id() + 3;
+        long targetParkingSpotId = vehicleTickets.stream().filter(vehicleTicket -> vehicleTicket.getVt_id() == vehicleTicketId).findFirst().get().getP_id() + 3; // parkingSpots.findFirstFree().get().getP_id();
         return new VehicleTask(null, vehicleTicketId, taskName, dateTime, currentParkingSpotId, targetParkingSpotId, 0);
     }
 
