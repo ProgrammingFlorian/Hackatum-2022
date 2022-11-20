@@ -11,6 +11,8 @@ export interface VehicleInfoDTO {
 
     licensePlate: string;
 
+    chargingStart: Date;
+    chargingEnd: Date;
     chargingSpeed: number;
     batteryLevel: number;
     batteryCapacity: number;
