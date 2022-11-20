@@ -33,9 +33,15 @@ public class SchedulingService {
      * Schedules a collection of VehicleTickets and saves the ordering in
      * VehicleSchedulingRepository.
      * (Overwriting all old data)
+     *
+     * Future improvements:
+     * - avoid switching parking spaces that do not involve charging spaces
+     * - avoid switching charging spaces for minor schedule improvements
+     * - consider non-linear charging behaviour
      */
     public void scheduleVehicleTickets() {
         vehicleScheduling.deleteAll();
+        vehicleTasks.deleteAll();
         List<Parkingspot> parkingSpots = new ArrayList<>();
         List<VehicleTicket> validVehicleTickets = new ArrayList<>(this.vehicleTickets.getAllValidTickets().orElseThrow());
         this.parkingSpots.findAll().forEach(parkingSpots::add);
@@ -54,6 +60,7 @@ public class SchedulingService {
     private VehicleScheduling scheduleNext(List<VehicleTicket> vehicleTickets, List<List<Object>> chargingSpotsFreeAt, int queuePosition) {
         VehicleScheduling bestScheduling = null;
         double bestSchedulingValue = Integer.MIN_VALUE;
+        VehicleTicket bestVehicleTicket = null;
         for (VehicleTicket vehicleTicket : vehicleTickets) {
             for (List<Object> parkingSpotTuple : chargingSpotsFreeAt) {
                 VehicleScheduling currentScheduling = getSchedulingForTicketAndSpot(vehicleTicket, parkingSpotTuple, queuePosition);
@@ -61,13 +68,15 @@ public class SchedulingService {
                 if (value > bestSchedulingValue) {
                     bestScheduling = currentScheduling;
                     bestSchedulingValue = value;
+                    bestVehicleTicket = vehicleTicket;
                 }
             }
         }
-        if (bestScheduling == null) {
+        if (bestScheduling == null || bestVehicleTicket == null) {
             throw new RuntimeException("No scheduling possible");
         }
         occupyChargingSpot(chargingSpotsFreeAt, bestScheduling);
+        bestVehicleTicket.setP_id(bestScheduling.getP_id());
         return bestScheduling;
     }
 
@@ -83,12 +92,14 @@ public class SchedulingService {
     private double evaluateScheduling(VehicleScheduling currentScheduling, VehicleTicket vehicleTicket) {
         double k = getCustomerPriority(currentScheduling);
         Timestamp checkoutTime = vehicleTicket.getCheckoutTimestamp();
-        double l = currentScheduling.getChargeAtCheckout();
+        double chargeAtCheckout = currentScheduling.getChargeAtCheckout();
+        double capacity = this.models.findByM_id(this.vehicles.findById(vehicleTicket.getV_id()).get().getM_id()).get().getBatteryCapacity();
+        double l = (chargeAtCheckout / capacity) * 100;
         return (1 / (1 + Math.exp(-(((1.0 / 7.0) * l) - 10)))) * k;
     }
 
     private double getCustomerPriority(VehicleScheduling currentScheduling) {
-        // mocked for now; could be implemented once we have a user db
+        // mocked for now; would be implemented once we have a user db
         return 1;
     }
 
@@ -99,7 +110,8 @@ public class SchedulingService {
         int batteryCapacity = getBatteryCapacity(vehicleTicket);
         int batteryLevelStart = getCurrentBatteryLevel(vehicleTicket);
         int chargingSpeed = ((Parkingspot) chargingSpotFreeAt.get(0)).getChargingSpeed();
-        Timestamp chargingEnd = new Timestamp(chargingStart.getTime() + calculateChargingDurationInMs(batteryCapacity, batteryLevelStart, chargingSpeed));
+        long chargingDurationInMs = calculateChargingDurationInMs(batteryCapacity, batteryLevelStart, chargingSpeed);
+        Timestamp chargingEnd = new Timestamp(chargingStart.getTime() + chargingDurationInMs);
         Timestamp checkoutTime = vehicleTicket.getCheckoutTimestamp();
         int chargeAtCheckout = calculateChargeAtCheckout(batteryCapacity, batteryLevelStart, chargingSpeed, chargingStart, checkoutTime);
         return new VehicleScheduling(null, vehicleTicketId, parkingSpotId, queuePosition, chargingStart, chargingEnd, chargeAtCheckout, batteryLevelStart);
@@ -132,7 +144,7 @@ public class SchedulingService {
         String taskName = VehicleTask.MOVE_VEHICLE_KEY;
         Timestamp dateTime = nextScheduling.getChargingEnd();
         long currentParkingSpotId = nextScheduling.getP_id();
-        long targetParkingSpotId = vehicleTickets.stream().filter(vehicleTicket -> vehicleTicket.getVt_id() == vehicleTicketId).findFirst().get().getP_id();
+        long targetParkingSpotId = vehicleTickets.stream().filter(vehicleTicket -> vehicleTicket.getVt_id() == vehicleTicketId).findFirst().get().getP_id() + 3;
         return new VehicleTask(null, vehicleTicketId, taskName, dateTime, currentParkingSpotId, targetParkingSpotId, 0);
     }
 
@@ -196,7 +208,7 @@ public class SchedulingService {
     }
 
     private static long calculateChargingDurationInMs(int batteryCapacity, int batteryLevelStart, int chargingSpeed) {
-        return (long) ((batteryCapacity - batteryLevelStart) / (chargingSpeed)) * 60 * 60 * 1000;
+        return (long) ((((float)batteryCapacity - batteryLevelStart) / (chargingSpeed)) * 60 * 60 * 1000);
     }
 
 

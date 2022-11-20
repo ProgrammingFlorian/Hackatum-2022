@@ -42,8 +42,9 @@ public class VehiclesController {
     @PostMapping("/vehicle/checkin/{plate}")
     public ResponseEntity<VehicleDTO> checkInVehicle(@PathVariable String plate)
     {
+        ResponseEntity<VehicleDTO> response = new ResponseEntity<>(ressourceService.checkIn(plate), HttpStatus.OK);
         scheduler.scheduleVehicleTickets();
-        return new ResponseEntity<>(ressourceService.checkIn(plate), HttpStatus.OK);
+        return response;
     }
 
     @PostMapping("/vehicle/checkout/{plate}")

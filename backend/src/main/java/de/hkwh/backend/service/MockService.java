@@ -19,12 +19,14 @@ public class MockService {
     /**
      * Demo Szenario:
      * Cars:
-     *  - BMW i4 -> being returned and will be picked up later -> live perform checkin
-     *      -> will be among the first three
-     *  - (potentially another one)
+     * - 9 vehicles; 7 of those have tickets (the last i4 and the last e-tron do not)
+     * - User Story:
+     * - BMW i4 -> being returned and will be picked up later -> live perform checkin
+     * -> should be among the first three priority wise
+     * - (potentially do another one)
      * Parking Spaces:
-     *  - many (15?) normal parking spaces
-     *  - 3 with energy (-> wallboxes)
+     * - 13 normal parking spaces
+     * - 3 with energy (-> wallboxes)
      */
 
     private final HubRepository hubs;
@@ -49,19 +51,19 @@ public class MockService {
     }
 
     private void clearDatabases() {
-         hubs.deleteAll();
-         parkingSpots.deleteAll();
-         models.deleteAll();
-         vehicles.deleteAll();
-         vehicleTickets.deleteAll();
-         vehicleTasks.deleteAll();
-         vehicleScheduling.deleteAll();
+        hubs.deleteAll();
+        parkingSpots.deleteAll();
+        models.deleteAll();
+        vehicles.deleteAll();
+        vehicleTickets.deleteAll();
+        vehicleTasks.deleteAll();
+        vehicleScheduling.deleteAll();
     }
 
     private Model[] setupModels() {
-        Model eqa = new Model("Electric SUV", "Mercedes", "EQA", 112, 69);
-        Model eTron = new Model("Electric sports car", "Audi", "e-Tron GT", 268, 93);
-        Model i4 = new Model("Middle class", "BMW", "i4", 207, 84);
+        Model eqa = new Model("Electric SUV", "Mercedes", "EQA", 100, 70);
+        Model eTron = new Model("Electric sports car", "Audi", "e-Tron GT", 150, 95);
+        Model i4 = new Model("Middle class", "BMW", "i4", 130, 80);
 
         eqa = models.save(eqa);
         eTron = models.save(eTron);
@@ -72,22 +74,28 @@ public class MockService {
 
     private Vehicle[] setupVehicles(Model[] models) {
         Vehicle eqa1 = new Vehicle(models[0].getM_id(), "M SX 0001", 20, "red");
-        Vehicle eqa2 = new Vehicle(models[0].getM_id(), "M SX 0002", 70, "white");
+        Vehicle eqa2 = new Vehicle(models[0].getM_id(), "M SX 0002", 60, "white");
         Vehicle eTron1 = new Vehicle(models[1].getM_id(), "M SX 0003", 40, "blue");
-        Vehicle i4_1 = new Vehicle(models[2].getM_id(), "M SX 0004", 90, "green");
-        Vehicle i4_2 = new Vehicle(models[2].getM_id(), "M SX 0005", 10, "yellow");
-        Vehicle i4_3 = new Vehicle(models[2].getM_id(), "M SX 0006", 35, "red");
+        Vehicle eTron2 = new Vehicle(models[1].getM_id(), "M SX 0004", 25, "black");
+        Vehicle eTron3 = new Vehicle(models[2].getM_id(), "M SX 0005", 5, "green"); // unticketed -> should have high priority
+        Vehicle i4_1 = new Vehicle(models[2].getM_id(), "M SX 0006", 30, "green");
+        Vehicle i4_2 = new Vehicle(models[2].getM_id(), "M SX 0007", 25, "yellow");
+        Vehicle i4_3 = new Vehicle(models[2].getM_id(), "M SX 0008", 35, "red");
+        Vehicle i4_4 = new Vehicle(models[2].getM_id(), "M SX 0009", 5, "blue"); // unticketed -> should have high priority
 
         eqa1 = vehicles.save(eqa1);
         eqa2 = vehicles.save(eqa2);
-
         eTron1 = vehicles.save(eTron1);
-
+        eTron2 = vehicles.save(eTron2);
         i4_1 = vehicles.save(i4_1);
         i4_2 = vehicles.save(i4_2);
         i4_3 = vehicles.save(i4_3);
 
-        return new Vehicle[]{eqa1, eqa2, eTron1, i4_1, i4_2, i4_3};
+        // these two will not have any tickets
+        eTron3 = vehicles.save(eTron3);
+        i4_4 = vehicles.save(i4_4);
+
+        return new Vehicle[]{eqa1, eqa2, eTron1, eTron2, i4_1, i4_2, i4_3, eTron3, i4_4};
     }
 
     private Hub setupHub() {
@@ -95,42 +103,37 @@ public class MockService {
     }
 
     private Parkingspot[] setupParkingSpots(Hub hub) {
-        Parkingspot w1 = new Parkingspot(hub.getH_id(), "W1", true, true);
-        Parkingspot w2 = new Parkingspot(hub.getH_id(), "W2", true, true);
-
-        Parkingspot p1 = new Parkingspot(hub.getH_id(), "P1", false, true);
-        Parkingspot p2 = new Parkingspot(hub.getH_id(), "P2", false, true);
-        Parkingspot p3 = new Parkingspot(hub.getH_id(), "P3", false, true);
-        Parkingspot p4 = new Parkingspot(hub.getH_id(), "P4", false, true);
-
-        w1 = parkingSpots.save(w1);
-        w2 = parkingSpots.save(w2);
-
-        p1 = parkingSpots.save(p1);
-        p2 = parkingSpots.save(p2);
-        p3 = parkingSpots.save(p3);
-        p4 = parkingSpots.save(p4);
-
-        return new Parkingspot[]{w1, w2, p1, p2, p3, p4};
+        Parkingspot[] spots = new Parkingspot[13];
+        for (int i = 0; i < 3; i++) {
+            int baseChargingSpeed = 100;
+            Parkingspot w = new Parkingspot(hub.getH_id(), "e-P" + (i + 1), true, baseChargingSpeed + i * 10, true);
+            parkingSpots.save(w);
+            spots[i] = w;
+        }
+        for (int i = 3; i < 13; i++) {
+            Parkingspot p = new Parkingspot(hub.getH_id(), "P" + (i + 1), false, true);
+            parkingSpots.save(p);
+            spots[i] = p;
+        }
+        return spots;
     }
 
-    private VehicleTicket[] setupTickets(Vehicle[] vehicles, Hub hub, Parkingspot[] spots)
-    {
-        VehicleTicket t1 = new VehicleTicket(vehicles[0].getV_id(), hub.getH_id(), spots[0].getP_id(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusHours(3)), randomNextCustomer(), true);
-        VehicleTicket t2 = new VehicleTicket(vehicles[2].getV_id(), hub.getH_id(), spots[1].getP_id(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusHours(2)), randomNextCustomer(), true);
-        VehicleTicket t3 = new VehicleTicket(vehicles[1].getV_id(), hub.getH_id(), spots[2].getP_id(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusHours(2)), randomNextCustomer(), true);
-        VehicleTicket t4 = new VehicleTicket(vehicles[4].getV_id(), hub.getH_id(), spots[3].getP_id(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusHours(1)), randomNextCustomer(), true);
-
-        t1 = vehicleTickets.save(t1);
-        t2 = vehicleTickets.save(t2);
-        t3 = vehicleTickets.save(t3);
-        t4 = vehicleTickets.save(t4);
-
-        return new VehicleTicket[]{t1, t2, t3, t4};
+    private VehicleTicket[] setupTickets(Vehicle[] vehicles, Hub hub, Parkingspot[] spots) {
+        VehicleTicket[] tickets = new VehicleTicket[vehicles.length];
+        Timestamp checkinTime = Timestamp.valueOf(LocalDateTime.now().minusMinutes(15));
+        Timestamp checkoutTime = Timestamp.valueOf(LocalDateTime.now().plusMinutes(60));
+        for (int i = 0; i < vehicles.length - 2; i++) { // last two won't have tickets
+            long randomTimeDelta = new Random().nextInt(1000 * 60 * 10);
+            Timestamp nextCheckinTime = new Timestamp(checkinTime.getTime() + randomTimeDelta);
+            Timestamp nextCheckoutTime = new Timestamp(checkoutTime.getTime() + randomTimeDelta);
+            VehicleTicket ticket = new VehicleTicket(vehicles[i].getV_id(), hub.getH_id(), spots[i].getP_id(), nextCheckinTime, nextCheckoutTime, randomNextCustomer(), true);
+            vehicleTickets.save(ticket);
+            tickets[i] = ticket;
+        }
+        return tickets;
     }
 
-    private VehicleTask[] setupTasks(VehicleTicket[] tickets, Parkingspot[] spots)
-    {
+    private VehicleTask[] setupTasks(VehicleTicket[] tickets, Parkingspot[] spots) {
         VehicleTask ta1 = new VehicleTask(tickets[0].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now()), tickets[0].getP_id(), spots[4].getP_id(), false);
         VehicleTask ta2 = new VehicleTask(tickets[1].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusHours(1)), tickets[1].getP_id(), spots[2].getP_id(), false);
         VehicleTask ta3 = new VehicleTask(tickets[2].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusHours(1)), tickets[2].getP_id(), spots[1].getP_id(), false);
@@ -146,7 +149,7 @@ public class MockService {
 
     private String randomNextCustomer() {
         Random random = new Random();
-        String[] customerNames = new String[]{"Max Meier", "Sabine Müller", "Franz Schmid", "Josef Bauer" , "Alex Maier"};
-        return customerNames[random.nextInt(0,5)];
+        String[] customerNames = new String[]{"Max Meier", "Sabine Müller", "Franz Schmid", "Josef Bauer", "Alex Maier"};
+        return customerNames[random.nextInt(0, 5)];
     }
 }

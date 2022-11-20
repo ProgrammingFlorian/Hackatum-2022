@@ -39,4 +39,12 @@ public class Parkingspot {
         this.hasWallbox = hasWallbox ? 1:0;
         this.isFree = isFree ? 1:0;
     }
+
+    public Parkingspot(long h_id, String spotName, boolean hasWallbox, int chargingSpeed, boolean isFree) {
+        this.h_id = h_id;
+        this.spotName = spotName;
+        this.hasWallbox = hasWallbox ? 1:0;
+        this.chargingSpeed = chargingSpeed;
+        this.isFree = isFree ? 1:0;
+    }
 }
