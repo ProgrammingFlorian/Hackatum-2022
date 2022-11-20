@@ -73,15 +73,15 @@ public class MockService {
     }
 
     private Vehicle[] setupVehicles(Model[] models) {
-        Vehicle eqa1 = new Vehicle(models[0].getM_id(), "M-SX-0001", 20, "red");
-        Vehicle eqa2 = new Vehicle(models[0].getM_id(), "M-SX-0002", 60, "white");
+        Vehicle eqa1 = new Vehicle(models[0].getM_id(), "M-SX-0005", 76, "red");
+        Vehicle eqa2 = new Vehicle(models[0].getM_id(), "M-SX-0009", 79, "yellow");
         Vehicle eTron1 = new Vehicle(models[1].getM_id(), "M-SX-0003", 40, "blue");
-        Vehicle eTron2 = new Vehicle(models[1].getM_id(), "M-SX-0004", 25, "black");
-        Vehicle eTron3 = new Vehicle(models[2].getM_id(), "M-SX-0005", 5, "green"); // unticketed -> should have high priority
-        Vehicle i4_1 = new Vehicle(models[2].getM_id(), "M-SX-0006", 30, "green");
-        Vehicle i4_2 = new Vehicle(models[2].getM_id(), "M-SX-0007", 25, "yellow");
+        Vehicle eTron2 = new Vehicle(models[1].getM_id(), "M-SX-0004", 39, "black");
+        Vehicle eTron3 = new Vehicle(models[2].getM_id(), "M-SX-0001", 58, "red"); // unticketed -> should have high priority
+        Vehicle i4_1 = new Vehicle(models[2].getM_id(), "M-SX-0006", 36, "green");
+        Vehicle i4_2 = new Vehicle(models[2].getM_id(), "M-SX-0007", 55, "yellow");
         Vehicle i4_3 = new Vehicle(models[2].getM_id(), "M-SX-0008", 35, "red");
-        Vehicle i4_4 = new Vehicle(models[2].getM_id(), "M-SX-0009", 5, "blue"); // unticketed -> should have high priority
+        Vehicle i4_4 = new Vehicle(models[2].getM_id(), "M-SX-0002", 60, "white"); // unticketed -> should have high priority
 
         eqa1 = vehicles.save(eqa1);
         eqa2 = vehicles.save(eqa2);
@@ -122,7 +122,7 @@ public class MockService {
         VehicleTicket[] tickets = new VehicleTicket[vehicles.length];
         Timestamp checkinTime = Timestamp.valueOf(LocalDateTime.now().minusMinutes(15));
         Timestamp checkoutTime = Timestamp.valueOf(LocalDateTime.now().plusMinutes(60));
-        for (int i = 0; i < vehicles.length - 2; i++) { // last two won't have tickets
+        for (int i = 2; i < vehicles.length ; i++) { // skip the first two; they will be added during the demo
             long randomTimeDelta = new Random().nextInt(1000 * 60 * 10);
             Timestamp nextCheckinTime = new Timestamp(checkinTime.getTime() + (i * 2 * 1000 * 60));
             Timestamp nextCheckoutTime = new Timestamp(checkoutTime.getTime() + randomTimeDelta);
@@ -134,10 +134,10 @@ public class MockService {
     }
 
     private VehicleTask[] setupTasks(VehicleTicket[] tickets, Parkingspot[] spots) {
-        VehicleTask ta1 = new VehicleTask(tickets[0].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now()), tickets[0].getP_id(), spots[4].getP_id(), false);
-        VehicleTask ta2 = new VehicleTask(tickets[1].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusHours(1)), tickets[1].getP_id(), spots[2].getP_id(), false);
-        VehicleTask ta3 = new VehicleTask(tickets[2].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusMinutes(30)), tickets[2].getP_id(), spots[1].getP_id(), false);
-        VehicleTask ta4 = new VehicleTask(tickets[3].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusMinutes(10)), tickets[3].getP_id(), spots[0].getP_id(), false);
+        VehicleTask ta1 = new VehicleTask(tickets[2].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now()), tickets[2].getP_id(), spots[4].getP_id(), false);
+        VehicleTask ta2 = new VehicleTask(tickets[3].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusHours(1)), tickets[3].getP_id(), spots[2].getP_id(), false);
+        VehicleTask ta3 = new VehicleTask(tickets[4].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusMinutes(30)), tickets[4].getP_id(), spots[1].getP_id(), false);
+        VehicleTask ta4 = new VehicleTask(tickets[5].getVt_id(), "Move Vehicle", Timestamp.valueOf(LocalDateTime.now().plusMinutes(10)), tickets[5].getP_id(), spots[0].getP_id(), false);
 
         ta1 = vehicleTasks.save(ta1);
         ta2 = vehicleTasks.save(ta2);
