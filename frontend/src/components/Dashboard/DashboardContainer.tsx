@@ -59,7 +59,7 @@ const DashboardContainer = () => {
     useEffect(() => {
         if (checkinPlate) {
             setTimeout(() => {
-                Requests.postRequest<VehicleInfoDTO>(apiVehicleCheckinRoute(checkinPlate), {}).then(vehicle => {
+                Requests.getRequest<VehicleInfoDTO>(apiVehicleCheckinRoute(checkinPlate)).then(vehicle => {
                     loadWallboxes().then(() => {
                         navigate(dashboardVehicleInfoRoute(vehicle.v_id));
                     });

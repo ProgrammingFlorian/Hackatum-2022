@@ -10,14 +10,15 @@ const SingleTaskComponent = (props: SingleTaskComponentProps) => {
     const timeTillNotification = new Date(Date.now() - new Date(props.task.dateTime).getTime());
     let timeString;
 
-    if(timeTillNotification.getHours() > 0) {
-        timeString = `${timeTillNotification.getHours()}h ${timeTillNotification.getMinutes()}m`;
+    if (timeTillNotification.getHours() - 1 > 0) {
+        timeString = `${timeTillNotification.getHours() - 1}h ${timeTillNotification.getMinutes()}m`;
     } else {
         timeString = `${timeTillNotification.getMinutes()}m`;
     }
 
     return (
-        <div className="container container-fluid notification-component text-white w-100" style={{boxShadow: "rgb(0 0 0 / 19%) 0px 1px 5px 0px"}}>
+        <div className="container container-fluid notification-component text-white w-100"
+             style={{boxShadow: "rgb(0 0 0 / 19%) 0px 1px 5px 0px"}}>
             <div className="row justify-content-between pt-1">
                 <div className="col-auto py-0">
                     <h3 className="p-0 m-0 fw-bold">{props.task.licensePlate}</h3>
@@ -46,8 +47,8 @@ const SingleTaskComponent = (props: SingleTaskComponentProps) => {
                     </svg>
 
                 </div>
-                <div className="col-auto align-self-center fw-bold" >
-                  Wallbox {props.task.from_p_id}
+                <div className="col-auto align-self-center fw-bold">
+                    Wallbox {props.task.from_p_id}
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      className="bi bi-arrow-right col-auto align-self-center" viewBox="0 0 16 16">
