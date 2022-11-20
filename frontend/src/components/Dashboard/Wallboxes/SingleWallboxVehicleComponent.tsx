@@ -26,17 +26,22 @@ const SingleWallboxVehicleComponent = (props: SingleWallboxVehicleComponentProps
     };
 
     let remainingTimeText;
+    let batteryLevel = props.vehicle.batteryLevel;
+
     const chargingStartDate = new Date(props.vehicle.chargingStart).getTime();
     const now = Date.now();
     let isCharging = chargingStartDate - now < 0;
     if (isCharging) {
         const chargingEndDate = new Date(props.vehicle.chargingEnd).getTime();
-        const remainingTime = new Date(chargingEndDate - chargingStartDate);
+        const remainingTime = new Date(chargingEndDate - now);
+        const chargingDuration = new Date(chargingEndDate - chargingStartDate);
         if (remainingTime.getHours() > 0) {
             remainingTimeText = `${remainingTime.getHours()}h ${remainingTime.getMinutes()}m remaining`
         } else {
             remainingTimeText = `${remainingTime.getMinutes()}m remaining`
         }
+        const charged = (remainingTime.getTime() / chargingDuration.getTime()) * (100 - batteryLevel);
+        batteryLevel += charged;
     } else {
         const remainingTime = new Date(chargingStartDate - now);
         if (remainingTime.getHours() > 0) {
@@ -52,12 +57,12 @@ const SingleWallboxVehicleComponent = (props: SingleWallboxVehicleComponentProps
              onClick={showVehicleInfo}>
             <div className="progress-bar progress-bar-component"
                  style={{
-                     width: (props.vehicle.batteryLevel) + "%",
-                     background: getBatteryLevelColorCode(props.vehicle.batteryLevel)
+                     width: (batteryLevel) + "%",
+                     background: getBatteryLevelColorCode(batteryLevel)
                  }}>
             </div>
             <div className="container text-start overlay pt-2">
-                <text style={{fontSize: "15px"}}>Charging: {Math.round(props.vehicle.batteryLevel)}%</text>
+                <text style={{fontSize: "15px"}}>Charging: {Math.round(batteryLevel)}%</text>
                 <h3 className="p-0 m-0 fw-bold pt-2">{props.vehicle.licensePlate}</h3>
                 <text style={{fontSize: "15px"}}>{props.vehicle.brand}: {props.vehicle.model}</text>
                 <br/>
