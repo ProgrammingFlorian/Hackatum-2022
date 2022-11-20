@@ -27,6 +27,7 @@ public class RessourceService {
     private final VehicleRepository vehicles;
     private final VehicleTicketRepository vehicleTickets;
     private final VehicleTaskRepository vehicleTasks;
+    private final SchedulingService schedulingService;
 
 
 
@@ -75,15 +76,11 @@ public class RessourceService {
 
         updateActive(vehicle.getV_id());
 
-        Random random = new Random();
-        int minuets = random.nextInt(0, 60);
-        int hours = random.nextInt(1,4);
-        LocalDateTime time = LocalDateTime.now();
-        time.plusHours(hours);
-        time.plusMinutes(minuets);
-        ticket.setCheckoutTimestamp(Timestamp.valueOf(time));
+        ticket.setCheckoutTimestamp(new Timestamp(System.currentTimeMillis() + 1000 * 60 * 60 * 20)); // car will be picked up 20 minutes after coming back
 
         ticket = vehicleTickets.save(ticket);
+
+        schedulingService.scheduleVehicleTickets();
 
         return VehicleDTO.of(vehicle, model, ticket);
     }
