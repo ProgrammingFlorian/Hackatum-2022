@@ -3,7 +3,7 @@ interface NavigationBarProps {
 }
 
 const NavigationBarComponent = (props: NavigationBarProps) => {
-    const isDashboardPage = window.location.href.endsWith('/');
+    const isDashboardPage = true; // window.location.href.endsWith('/');
     const isVehiclesPage = window.location.href.endsWith('vehicles');
 
     return (
