@@ -4,7 +4,7 @@ import {VehicleInfoDTO} from "../model/VehicleInfoDTO";
 const VehiclePageContainer = () => {
     const vehicles: VehicleInfoDTO[] =
         [
-            {
+            /*{
                 vehicleId: 4,
                 color: 'red',
                 licensePlate: 'M SX 0001',
@@ -26,8 +26,9 @@ const VehiclePageContainer = () => {
                 brand: "Audi",
                 model: "A1",
                 vehicleClass: "Class",
-                chargingSpeed: 10
-            }
+                chargingSpeed: 10,
+
+            }*/
         ];
 
     return <VehiclePageComponent vehicles={vehicles}/>

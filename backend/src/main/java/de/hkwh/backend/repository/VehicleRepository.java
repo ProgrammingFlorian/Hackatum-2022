@@ -21,4 +21,10 @@ public interface VehicleRepository extends CrudRepository <Vehicle, Long>{
     )
     Optional<Vehicle> findByV_id(@Param("v_id") long v_id);
 
+    @Query(
+            value = "Select * From vehicle Limit :amount",
+            nativeQuery = true
+    )
+    Optional<List<Vehicle>> getRandom(@Param("amount") int amount);
+
 }

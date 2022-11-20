@@ -2,16 +2,20 @@ import DashboardComponent from "./DashboardComponent";
 import {useEffect, useState} from "react";
 import {VehicleInfoDTO} from "../../model/VehicleInfoDTO";
 import {Requests} from "../../common/requests";
-import {apiDashboard, apiVehicleCheckinRoute, apiVehicleInfoRoute} from "../../common/apiRoutes";
-import {SuccessDTO} from "../../model/SuccessDTO";
+import {apiDashboard, apiVehicleCheckinRoute} from "../../common/apiRoutes";
 import {WallboxDTO} from "../../model/WallboxDTO";
 import {LoadingComponent} from "../LoadingComponent";
 import {DashboardDTO} from "../../model/DashboardDTO";
 import {TaskDTO} from "../../model/TaskDTO";
+import {useNavigate} from "react-router-dom";
+import {dashboardVehicleInfoRoute} from "../../common/pageRoutes";
 
 const DashboardContainer = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const checkin = urlParams.get("checkin");
+    const checkinPlate = urlParams.get("plate");
+    const vehicleInfoParam = urlParams.get("vehicle");
+
+    const navigate = useNavigate();
 
     const [vehicleInfo, setVehicleInfo] = useState<VehicleInfoDTO | null>(null);
     const [vehicleInfoTasks, setVehicleInfoTasks] = useState<TaskDTO[]>([]);
@@ -32,7 +36,7 @@ const DashboardContainer = () => {
             setVehicleInfo(vehicle)
         });*/
         setVehicleInfo(vehicleInfo);
-        setVehicleInfoTasks(tasks.filter(task => task.vehicle === vehicleInfo.vehicleId));
+        setVehicleInfoTasks(tasks.filter(task => task.v_id === vehicleInfo.v_id));
     }
 
     const hideVehicleInfo = () => {
@@ -42,8 +46,8 @@ const DashboardContainer = () => {
     const getVehicleById = (vehicleId: number): (VehicleInfoDTO | null) => {
         if (wallboxes) {
             for (const wallbox of wallboxes) {
-                for (const vehicleSchedule of wallbox.vehicles) {
-                    if (vehicleSchedule.vehicle.vehicleId === vehicleId) {
+                for (const vehicleSchedule of wallbox.vehicles_scheduled) {
+                    if (vehicleSchedule.vehicle.v_id === vehicleId) {
                         return vehicleSchedule.vehicle;
                     }
                 }
@@ -53,29 +57,32 @@ const DashboardContainer = () => {
     }
 
     useEffect(() => {
-        if (checkin) {
-            const vehicleId = Number(checkin);
-            Requests.postRequest<SuccessDTO>(apiVehicleCheckinRoute(vehicleId), {}).then(success => {
-                if (success.vehicleId) {
+        if (checkinPlate) {
+            setTimeout(() => {
+                Requests.postRequest<VehicleInfoDTO>(apiVehicleCheckinRoute(checkinPlate), {}).then(vehicle => {
                     loadWallboxes().then(() => {
-                        const vehicle = getVehicleById(vehicleId);
-                        if (vehicle !== null) {
-                            showVehicleInfo(vehicle);
-                        }
+                        navigate(dashboardVehicleInfoRoute(vehicle.v_id));
                     });
-                } else {
-                    console.log("Checkin failed!");
-                }
-            });
+                });
+            }, 2000);
         }
-        loadWallboxes();
-    });
+        loadWallboxes().then(() => {
+            if (vehicleInfoParam) {
+                let vehicleId = Number(vehicleInfoParam);
+                let vehicle = getVehicleById(vehicleId);
+                console.log("wallboxes", wallboxes);
+                if (vehicle) {
+                    showVehicleInfo(vehicle);
+                }
+            }
+        });
+    }, [checkinPlate]);
 
     if (wallboxes === null) {
         return LoadingComponent({
             message: "Lade..."
         });
-    } else if (checkin !== null) {
+    } else if (checkinPlate !== null) {
         return LoadingComponent({
             message: "Currently checking in your vehicle..."
         });

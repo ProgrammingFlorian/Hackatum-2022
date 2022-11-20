@@ -39,4 +39,12 @@ public class VehicleTask {
     @Column(name = "fulfilled")
     private int fulfilled;
 
+    public VehicleTask(long vt_id, String taskName, Timestamp dateTime, long from_p_id, long to_p_id, boolean fulfilled) {
+        this.vt_id = vt_id;
+        this.taskName = taskName;
+        this.dateTime = dateTime;
+        this.from_p_id = from_p_id;
+        this.to_p_id = to_p_id;
+        this.fulfilled = fulfilled?1:0;
+    }
 }

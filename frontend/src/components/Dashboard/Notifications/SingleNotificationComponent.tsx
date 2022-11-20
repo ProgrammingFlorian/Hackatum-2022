@@ -1,5 +1,7 @@
+import {TaskDTO} from "../../../model/TaskDTO";
+
 export interface SingleNotificationComponentProps {
-    name: string;
+    task: TaskDTO;
 }
 
 const SingleNotificationComponent = (props: SingleNotificationComponentProps) => {
@@ -7,8 +9,8 @@ const SingleNotificationComponent = (props: SingleNotificationComponentProps) =>
         <div className="container container-fluid notification-component text-white w-100">
             <div className="row justify-content-between pt-1">
                 <div className="col-auto py-0">
-                    <h3 className="p-0 m-0 fw-bold">M-HT-0001</h3>
-                    <text className="p-0  m-0">Mercedes Benz: A-Klasse</text>
+                    <h3 className="p-0 m-0 fw-bold">{props.task.licensePlate}</h3>
+                    <text className="p-0  m-0">{props.task.brand}: {props.task.model}</text>
                 </div>
                 <div className="col-auto py-0 text-end">
                     <text>
@@ -34,7 +36,7 @@ const SingleNotificationComponent = (props: SingleNotificationComponentProps) =>
 
                 </div>
                 <div className="col-auto align-self-center fw-bold" >
-                  Wallbox 1
+                  Wallbox {props.task.from_p_id}
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      className="bi bi-arrow-right col-auto align-self-center" viewBox="0 0 16 16">
@@ -42,7 +44,7 @@ const SingleNotificationComponent = (props: SingleNotificationComponentProps) =>
                           d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                 </svg>
                 <text className="col-auto align-self-center fw-bold">
-                    &nbsp;Slot 22
+                    &nbsp;Slot {props.task.to_p_id}
                 </text>
 
             </div>

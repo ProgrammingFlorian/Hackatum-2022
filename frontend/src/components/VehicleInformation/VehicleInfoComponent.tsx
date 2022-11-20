@@ -27,7 +27,8 @@ const VehicleInfoComponent = (props: VehicleInfoComponentProps) => {
 
     return (
         <div className="container text-white px-0 pt-2" style={{boxShadow: "4px"}}>
-            <div className="container-fluid info-component px-4 pt-3" style={{background: colorGradient(props.vehicle.color)}}>
+            <div className="container-fluid info-component px-4 pt-3"
+                 style={{background: colorGradient(props.vehicle.color)}}>
                 <div className="row justify-content-between align-items-start">
                     <svg xmlns="http://www.w3.org/2000/svg pt-5 px-0" width="40" height="40" fill="white"
                          className="bi bi-x-lg col-auto align-items-center pt-2" viewBox="0 0 16 16"
@@ -55,9 +56,10 @@ const VehicleInfoComponent = (props: VehicleInfoComponentProps) => {
                         <br/><br/><br/><br/>
                         <div className="col-sm-6">
                             <h3 className="fw-bold">Next Pick-Up:</h3>
-                            <text style={{fontSize: "20px"}}>{props.vehicle.nextPickUpTime.toString()}</text>
+                            {/* TODO */}
+                            <text style={{fontSize: "20px"}}>{props.vehicle.checkout_date.toString()}</text>
                             <br/>
-                            <text className="py-0" style={{fontSize: "20px"}}>{props.vehicle.nextPickUpCustomer}</text>
+                            <text className="py-0" style={{fontSize: "20px"}}>{props.vehicle.nextCustomer}</text>
                         </div>
                     </div>
                     <div>
