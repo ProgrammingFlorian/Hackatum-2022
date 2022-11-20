@@ -57,7 +57,7 @@ const VehicleInfoComponent = (props: VehicleInfoComponentProps) => {
                         <div className="col-sm-6">
                             <h3 className="fw-bold">Next Pick-Up:</h3>
                             {/* TODO */}
-                            <text style={{fontSize: "20px"}}>{props.vehicle.checkout_date.toString()}</text>
+                            <text style={{fontSize: "20px"}}>{new Date(props.vehicle.checkout_date).toLocaleTimeString()}</text>
                             <br/>
                             <text className="py-0" style={{fontSize: "20px"}}>{props.vehicle.nextCustomer}</text>
                         </div>
