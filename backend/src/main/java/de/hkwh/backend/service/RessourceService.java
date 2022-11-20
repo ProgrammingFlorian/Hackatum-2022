@@ -79,6 +79,10 @@ public class RessourceService {
         ticket.setCheckoutTimestamp(new Timestamp(System.currentTimeMillis() + 1000 * 60 * 60 * 20)); // car will be picked up 20 minutes after coming back
 
         ticket = vehicleTickets.save(ticket);
+        // shuffle vehicleTickets
+        var vehicleTickets = this.vehicleTickets.findAll();
+        this.vehicleTickets.deleteAll();
+        this.vehicleTickets.saveAll(vehicleTickets);
 
         schedulingService.scheduleVehicleTickets();
 
