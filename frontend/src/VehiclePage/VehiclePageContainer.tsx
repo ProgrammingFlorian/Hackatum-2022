@@ -1,37 +1,28 @@
 import VehiclePageComponent from "./VehiclePageComponent";
 import {VehicleInfoDTO} from "../model/VehicleInfoDTO";
+import {Requests} from "../common/requests";
+import {apiVehiclesRoute} from "../common/apiRoutes";
+import {useEffect, useState} from "react";
+import {LoadingComponent} from "../components/LoadingComponent";
 
 const VehiclePageContainer = () => {
-    const vehicles: VehicleInfoDTO[] =
-        [
-            /*{
-                vehicleId: 4,
-                color: 'red',
-                licensePlate: 'M SX 0001',
-                nextPickUpCustomer: "Marius",
-                nextPickUpTime: new Date(),
-                batteryLevel: 20,
-                brand: "Audi",
-                model: "A1",
-                vehicleClass: "Class",
-                chargingSpeed: 10
-            },
-            {
-                vehicleId: 4,
-                color: 'red',
-                licensePlate: 'M SX 0001',
-                nextPickUpCustomer: "Max",
-                nextPickUpTime: new Date,
-                batteryLevel: 50,
-                brand: "Audi",
-                model: "A1",
-                vehicleClass: "Class",
-                chargingSpeed: 10,
+    const [vehicles, setVehicles] = useState<VehicleInfoDTO[] | null>(null);
+    const loadVehicles = () => {
+        Requests.getRequest<VehicleInfoDTO[]>(apiVehiclesRoute()).then((vehicles) => {
+            setVehicles(vehicles);
+        });
+    };
 
-            }*/
-        ];
+    useEffect(() => {
+        loadVehicles();
+    }, []);
 
-    return <VehiclePageComponent vehicles={vehicles}/>
+    if (vehicles) {
+        return <VehiclePageComponent vehicles={vehicles}/>
+    } else {
+        return <LoadingComponent message={"Loading..."}/>
+    }
+
 };
 
 export default VehiclePageContainer;
