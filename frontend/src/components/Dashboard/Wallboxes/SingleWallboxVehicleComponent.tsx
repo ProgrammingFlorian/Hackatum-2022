@@ -48,7 +48,7 @@ const SingleWallboxVehicleComponent = (props: SingleWallboxVehicleComponentProps
 
     return (
         <div className="progress position-relative row mb-3"
-             style={{height: "150px", width: "300px", background: "#535353", cursor: "pointer", userSelect: "none"}}
+             style={{height: "150px", width: "300px", background: "#535353", cursor: "pointer", userSelect: "none", boxShadow: "rgb(0 0 0 / 19%) 0px 1px 5px 0px"}}
              onClick={showVehicleInfo}>
             <div className="progress-bar progress-bar-component"
                  style={{

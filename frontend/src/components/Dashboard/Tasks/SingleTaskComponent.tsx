@@ -17,7 +17,7 @@ const SingleTaskComponent = (props: SingleTaskComponentProps) => {
     }
 
     return (
-        <div className="container container-fluid notification-component text-white w-100">
+        <div className="container container-fluid notification-component text-white w-100" style={{boxShadow: "rgb(0 0 0 / 19%) 0px 1px 5px 0px"}}>
             <div className="row justify-content-between pt-1">
                 <div className="col-auto py-0">
                     <h3 className="p-0 m-0 fw-bold">{props.task.licensePlate}</h3>

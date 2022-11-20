@@ -79,7 +79,7 @@ const DashboardContainer = () => {
 
     if (wallboxes === null) {
         return LoadingComponent({
-            message: "Lade..." + window.location.hostname
+            message: "Loading..."
         });
     } else if (checkinPlate !== null) {
         return LoadingComponent({
