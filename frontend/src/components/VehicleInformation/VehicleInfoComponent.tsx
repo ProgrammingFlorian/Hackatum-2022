@@ -1,4 +1,4 @@
-import DashboardTaskContainer from "../Dashboard/Notifications/DashboardTaskContainer";
+import DashboardTaskContainer from "../Dashboard/Tasks/DashboardTaskContainer";
 import {VehicleInfoDTO} from "../../model/VehicleInfoDTO";
 import {TaskDTO} from "../../model/TaskDTO";
 
