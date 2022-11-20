@@ -70,7 +70,7 @@ const SingleWallboxVehicleComponent = (props: SingleWallboxVehicleComponentProps
         }
         setCurrentBatteryLevel(batteryLevel);
         setRemainingTimeText(text);
-        setCharging(charging ? 1 : 0);
+        setCharging(charging);
     }
 
     useEffect(() => {
