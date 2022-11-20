@@ -1,6 +1,9 @@
 package de.hkwh.backend.service;
 
 import de.hkwh.backend.datatransferobjects.TaskDTO;
+import de.hkwh.backend.datatransferobjects.VehicleDTO;
+import de.hkwh.backend.datatransferobjects.VehicleSchedulingDTO;
+import de.hkwh.backend.datatransferobjects.WallboxDTO;
 import de.hkwh.backend.model.*;
 import de.hkwh.backend.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +31,23 @@ public class SchedulingService {
      * FindParkingspot
      * CreateTask
      */
+    public WallboxDTO[] getWallBoxes(){
+        //scheduleVehicleTickets();
+        List<Parkingspot> wallboxes = parkingSpots.findWallboxes().orElseThrow();
+        List<WallboxDTO> wallboxDTOs = new ArrayList<>();
+        for(Parkingspot wallbox: wallboxes){
+            List<VehicleScheduling> scheduledVehicles = vehicleScheduling.getAllSchedulesByP_id(wallbox.getP_id()).orElseThrow();
+            List<VehicleSchedulingDTO> vehicleSchedulingDTOs = new ArrayList<>();
+            for(VehicleScheduling vs : scheduledVehicles) {
+                vehicleSchedulingDTOs.add(createVehicleSchedulingDTO(vs));
+            }
+            vehicleSchedulingDTOs.sort(Comparator.comparing(VehicleSchedulingDTO::queuePosition));
+            VehicleSchedulingDTO[] scheduledVehicleDTOArray = vehicleSchedulingDTOs.toArray(VehicleSchedulingDTO[]::new);
+            wallboxDTOs.add(createWallboxDTO(wallbox,scheduledVehicleDTOArray));
+        }
+        wallboxDTOs.sort(Comparator.comparing(WallboxDTO::p_id));
+        return wallboxDTOs.toArray(WallboxDTO[]::new);
+    }
 
     /**
      * Schedules a collection of VehicleTickets and saves the ordering in
@@ -210,5 +230,22 @@ public class SchedulingService {
         }
     }
 
+    private VehicleSchedulingDTO createVehicleSchedulingDTO(VehicleScheduling vehicleScheduling)
+    {
+        VehicleTicket vehicleTicket = vehicleTickets.findByVt_id(vehicleScheduling.getVt_id()).orElseThrow();
+        Vehicle vehicle = vehicles.findByV_id(vehicleTicket.getV_id()).orElseThrow();
+        return VehicleSchedulingDTO.of(createVehicleDTO(vehicle, vehicleTicket), vehicleScheduling.getQueuePosition());
+    }
 
+    private VehicleDTO createVehicleDTO(Vehicle vehicle, VehicleTicket ticket)
+    {
+        Model model = models.findByM_id(vehicle.getM_id()).orElseThrow();
+        return VehicleDTO.of(vehicle, model, ticket);
+    }
+
+    private WallboxDTO createWallboxDTO(Parkingspot spot, VehicleSchedulingDTO[] schedulingVehicles)
+    {
+        Hub hub = hubs.findByH_id(spot.getH_id()).orElseThrow();
+        return WallboxDTO.of(spot,hub, schedulingVehicles);
+    }
 }
