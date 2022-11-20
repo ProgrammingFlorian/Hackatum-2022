@@ -23,7 +23,7 @@ const DashboardComponent = (props: DashboardComponentProps) => {
                 <div className="container-fluid p-0">
                     <DashboardWelcomeComponent/>
                 </div>
-                <div className="row justify-content-evenly">
+                <div className="row justify-content-evenly m-0">
                     <div className="container col-md-8  justify-content-center">
                         <DashboardWallboxContainer wallboxes={props.wallboxes} showVehicleInfo={props.showVehicleInfo}/>
                     </div>
